@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "ae2-emi-crafting",
   "version": "${version}",
-  "name": "ae2-emi-crafting",
+  "name": "AE2 EMI Crafting Integration",
   "description": "Adds support for crafring on Applied Energistics 2 terminals",
   "authors": [
     "roridev"
