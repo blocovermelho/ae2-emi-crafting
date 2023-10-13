@@ -51,6 +51,8 @@ public class Ae2RecipeHandler<T extends CraftingTermMenu> implements StandardRec
                 }).toList());
 
         sources.addAll(handler.getSlots(SlotSemantics.PLAYER_INVENTORY));
+        sources.addAll(handler.getSlots(SlotSemantics.PLAYER_HOTBAR));
+        sources.addAll(handler.getSlots(SlotSemantics.CRAFTING_GRID));
 
         return sources;
     }
