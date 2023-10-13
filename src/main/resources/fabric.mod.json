@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "id": "ae2-emi-crafting",
+  "version": "${version}",
+  "name": "ae2-emi-crafting",
+  "description": "Adds support for crafring on Applied Energistics 2 terminals",
+  "authors": [
+    "roridev"
+  ],
+  "contact": {
+    "repo": "https://github.com/blocovermelho/ae2-emi-crafting"
+  },
+  "license": "MIT",
+  "icon": "assets/ae2-emi-crafting/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "emi" : [
+      "org.blocovermelho.ae2emicrafting.client.AE2EmiCraftingPlugin"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "minecraft": "${minecraft_version}",
+    "emi": "${emi_version}"
+  }
+}
