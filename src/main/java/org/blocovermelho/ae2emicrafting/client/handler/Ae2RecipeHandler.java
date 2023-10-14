@@ -4,6 +4,7 @@ import appeng.api.stacks.AEItemKey;
 import appeng.api.stacks.AEKey;
 import appeng.core.sync.network.NetworkHandler;
 import appeng.core.sync.packets.FillCraftingGridFromRecipePacket;
+import appeng.integration.modules.jeirei.EncodingHelper;
 import appeng.menu.SlotSemantics;
 import appeng.menu.me.common.GridInventoryEntry;
 import appeng.menu.me.common.IClientRepo;
@@ -95,7 +96,7 @@ public class Ae2RecipeHandler<T extends CraftingTermMenu> implements StandardRec
 
 
     private DefaultedList<ItemStack> findTemplateCandidates(EmiRecipe recipe, T menu) {
-        Map<AEKey, Integer> prioritizedInventory = prioritize(menu);
+        Map<AEKey, Integer> prioritizedInventory = EncodingHelper.getIngredientPriorities(menu, BY_COUNT);
         DefaultedList<ItemStack> list = DefaultedList.ofSize(9, ItemStack.EMPTY);
         DefaultedList<EmiIngredient> normalizedMatrix = ensureSize(recipe);
 
@@ -117,34 +118,6 @@ public class Ae2RecipeHandler<T extends CraftingTermMenu> implements StandardRec
         }
 
         return list;
-    }
-
-    private Map<AEKey, Integer> prioritize(T menu){
-        var result = new HashMap<AEKey, Integer>();
-
-        if (menu.getClientRepo() == null) {
-            return result;
-        }
-
-        List<AEKey> aeKeys = menu.getClientRepo().getAllEntries().stream()
-                .filter((s) -> s.getWhat() != null)
-                .sorted(BY_COUNT)
-                .map(GridInventoryEntry::getWhat)
-                .toList();
-
-        for (int i = 0; i < aeKeys.size(); i++) {
-            result.put(aeKeys.get(i), i);
-        }
-
-        for (ItemStack stack : menu.getPlayerInventory().main) {
-            AEItemKey itemKey = AEItemKey.of(stack);
-
-            if (itemKey != null) {
-                result.putIfAbsent(itemKey, -1);
-            }
-        }
-
-        return result;
     }
 
     private DefaultedList<EmiIngredient> ensureSize(EmiRecipe recipe) {
