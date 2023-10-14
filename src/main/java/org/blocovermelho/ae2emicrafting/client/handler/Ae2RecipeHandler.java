@@ -41,6 +41,7 @@ public class Ae2RecipeHandler<T extends CraftingTermMenu> implements StandardRec
         List<Slot> sources = new ArrayList<>(clientRepo.getAllEntries()
                 .stream()
                 .filter((s) -> s.getWhat() != null)
+                .filter((s) -> s.getStoredAmount() > 0 || !s.isCraftable())
                 .map((s) -> {
                     ItemStack stack = s.getWhat().wrapForDisplayOrFilter();
                     long amount = s.getStoredAmount();
@@ -74,7 +75,7 @@ public class Ae2RecipeHandler<T extends CraftingTermMenu> implements StandardRec
             DefaultedList<ItemStack> candidates = findTemplateCandidates(craftingRecipe, context.getScreenHandler());
 
             // Sends a packet to the server, informing that a crafting was requested. Since that's how AE2 handles crafting requests.
-            NetworkHandler.instance().sendToServer(new FillCraftingGridFromRecipePacket(recipeId, candidates, true));
+            NetworkHandler.instance().sendToServer(new FillCraftingGridFromRecipePacket(recipeId, candidates, false));
             return true;
         }
 
