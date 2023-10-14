@@ -3,7 +3,7 @@
   "id": "ae2-emi-crafting",
   "version": "${version}",
   "name": "AE2 EMI Crafting Integration",
-  "description": "Adds support for crafring on Applied Energistics 2 terminals",
+  "description": "Adds support for crafting with EMI on Applied Energistics 2 terminals",
   "authors": [
     "roridev"
   ],
