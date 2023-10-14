@@ -11,7 +11,7 @@
     "repo": "https://github.com/blocovermelho/ae2-emi-crafting"
   },
   "license": "MIT",
-  "icon": "assets/ae2-emi-crafting/icon.png",
+  "icon": "assets/ae2-emi-crafting/logo.png",
   "environment": "client",
   "entrypoints": {
     "emi" : [
