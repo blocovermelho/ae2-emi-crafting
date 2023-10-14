@@ -30,3 +30,9 @@ to set up the plugin entrypoint.
 Chikage0o0's [emicompat](https://modrinth.com/mod/emicompat) - Helped figure out that you need to send a packet to AE2 
 for it to craft with items from the system, and the prioritization logic.  
 
+## Tips
+
+For syncing your AE2 search with EMI you can use the *runtime JEI integration* that EMI has.
+
+- Just add [JEI](https://modrinth.com/mod/jei) (**NOT REI**) into your mods folder and select *Sync with JEI*
+on the terminal settings.
