@@ -4,11 +4,13 @@ import appeng.client.gui.AEBaseScreen;
 import appeng.core.definitions.AEParts;
 import appeng.menu.AEBaseMenu;
 import appeng.menu.me.items.CraftingTermMenu;
+import appeng.menu.me.items.PatternEncodingTermMenu;
 import dev.emi.emi.api.EmiPlugin;
 import dev.emi.emi.api.EmiRegistry;
 import dev.emi.emi.api.recipe.VanillaEmiRecipeCategories;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.Bounds;
+import org.blocovermelho.ae2emicrafting.client.handler.Ae2PatternTerminalHandler;
 import org.blocovermelho.ae2emicrafting.client.handler.Ae2RecipeHandler;
 
 public class Ae2EmiPlugin implements EmiPlugin {
@@ -16,6 +18,8 @@ public class Ae2EmiPlugin implements EmiPlugin {
     public void register(EmiRegistry registry) {
         registry.addWorkstation(VanillaEmiRecipeCategories.CRAFTING, EmiStack.of(AEParts.CRAFTING_TERMINAL.stack()));
         registry.addRecipeHandler(CraftingTermMenu.TYPE, new Ae2RecipeHandler<>());
+
+        registry.addRecipeHandler(PatternEncodingTermMenu.TYPE, new Ae2PatternTerminalHandler<>());
 
         registry.addGenericExclusionArea(((screen, consumer) -> {
             if (screen instanceof AEBaseScreen<? extends AEBaseMenu> baseScreen) {
