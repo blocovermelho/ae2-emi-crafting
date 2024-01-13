@@ -9,6 +9,7 @@ import dev.emi.emi.api.recipe.VanillaEmiRecipeCategories;
 import dev.emi.emi.api.recipe.handler.EmiCraftContext;
 import dev.emi.emi.api.recipe.handler.StandardRecipeHandler;
 import dev.emi.emi.api.stack.EmiIngredient;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.Recipe;
@@ -68,6 +69,8 @@ public class Ae2PatternTerminalHandler<T extends PatternEncodingTermMenu> implem
         List<List<GenericStack>> items = recipe.getInputs().stream().map(Ae2PatternTerminalHandler::intoGenericStack).toList();
 
         EncodingHelper.encodeCraftingRecipe(menu, nm_recipe.get(), items, (x) -> true);
+    
+        MinecraftClient.getInstance().setScreen(context.getScreen());
 
         return true;
     }

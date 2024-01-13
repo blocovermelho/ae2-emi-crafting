@@ -17,6 +17,7 @@ import dev.emi.emi.api.recipe.handler.EmiCraftContext;
 import dev.emi.emi.api.recipe.handler.StandardRecipeHandler;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.Ingredient;
@@ -77,6 +78,7 @@ public class Ae2RecipeHandler<T extends CraftingTermMenu> implements StandardRec
 
             // Sends a packet to the server, informing that a crafting was requested. Since that's how AE2 handles crafting requests.
             NetworkHandler.instance().sendToServer(new FillCraftingGridFromRecipePacket(recipeId, candidates, false));
+            MinecraftClient.getInstance().setScreen(context.getScreen());
             return true;
         }
 
