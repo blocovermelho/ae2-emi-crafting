@@ -13,9 +13,8 @@ import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.util.Identifier;
+import org.blocovermelho.ae2emicrafting.client.helper.mapper.EmiStackConvertible;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -60,15 +59,18 @@ public class Ae2PatternTerminalHandler<T extends PatternEncodingTermMenu> implem
                 RecipeSerializer.SMITHING_TRANSFORM
         );
 
-        List<List<GenericStack>> items = recipe.getInputs().stream().map(Ae2PatternTerminalHandler::intoGenericStack).toList();
+        List<List<GenericStack>> items = recipe.getInputs()
+                .stream()
+                .map(EmiIngredient::getEmiStacks)
+                .map(x -> x.stream().map(EmiStackConvertible.AEGenericStack::into).toList())
+                .toList();
 
         if (acceptedSerializers.contains(nm_recipe.get().getSerializer())) {
             EncodingHelper.encodeCraftingRecipe(menu, nm_recipe.get(), items, (x) -> true);
         } else {
             // Convert the recipe to a "Processing" recipe.
             List<GenericStack> outputs = recipe.getOutputs().stream()
-                    .map(Ae2PatternTerminalHandler::intoGenericStack)
-                    .flatMap(Collection::stream)
+                    .map(EmiStackConvertible.AEGenericStack::into)
                     .toList();
 
             EncodingHelper.encodeProcessingRecipe(menu, items, outputs);
@@ -77,15 +79,5 @@ public class Ae2PatternTerminalHandler<T extends PatternEncodingTermMenu> implem
         MinecraftClient.getInstance().setScreen(context.getScreen());
 
         return true;
-    }
-
-    private static List<GenericStack> intoGenericStack(EmiIngredient ingredient) {
-        if (ingredient.isEmpty()) {
-            return new ArrayList<>();
-        }
-
-        return ingredient.getEmiStacks().stream().map((s) ->
-            GenericStack.fromItemStack(s.getItemStack())
-        ).toList();
     }
 }
