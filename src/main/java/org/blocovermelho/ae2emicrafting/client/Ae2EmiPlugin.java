@@ -6,6 +6,7 @@ import appeng.core.definitions.AEParts;
 import appeng.menu.AEBaseMenu;
 import appeng.menu.me.items.CraftingTermMenu;
 import appeng.menu.me.items.PatternEncodingTermMenu;
+import appeng.recipes.handlers.InscriberRecipe;
 import appeng.recipes.transform.TransformRecipe;
 import dev.emi.emi.api.EmiPlugin;
 import dev.emi.emi.api.EmiRegistry;
@@ -16,6 +17,7 @@ import org.blocovermelho.ae2emicrafting.client.handler.Ae2PatternTerminalDragHan
 import org.blocovermelho.ae2emicrafting.client.handler.Ae2PatternTerminalHandler;
 import org.blocovermelho.ae2emicrafting.client.handler.Ae2RecipeHandler;
 import org.blocovermelho.ae2emicrafting.client.recipes.Ae2Categories;
+import org.blocovermelho.ae2emicrafting.client.recipes.Ae2InscriberRecipe;
 import org.blocovermelho.ae2emicrafting.client.recipes.ItemTransformationRecipe;
 
 public class Ae2EmiPlugin implements EmiPlugin {
@@ -38,5 +40,8 @@ public class Ae2EmiPlugin implements EmiPlugin {
 
         registry.addCategory(Ae2Categories.WORLD_INTERACTION);
         Ae2Categories.addAll(registry, TransformRecipe.TYPE, ItemTransformationRecipe::new);
+
+        registry.addCategory(Ae2Categories.INSCRIBER);
+        Ae2Categories.addAll(registry, InscriberRecipe.TYPE, Ae2InscriberRecipe::new);
     }
 }
