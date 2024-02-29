@@ -1,6 +1,7 @@
 package org.blocovermelho.ae2emicrafting.client;
 
 import appeng.api.config.CondenserOutput;
+import appeng.api.features.P2PTunnelAttunementInternal;
 import appeng.client.gui.AEBaseScreen;
 import appeng.client.gui.me.items.PatternEncodingTermScreen;
 import appeng.core.definitions.AEParts;
@@ -13,12 +14,15 @@ import appeng.recipes.transform.TransformRecipe;
 import dev.emi.emi.api.EmiPlugin;
 import dev.emi.emi.api.EmiRegistry;
 import dev.emi.emi.api.recipe.VanillaEmiRecipeCategories;
+import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.Bounds;
 import org.blocovermelho.ae2emicrafting.client.handler.Ae2PatternTerminalDragHandler;
 import org.blocovermelho.ae2emicrafting.client.handler.Ae2PatternTerminalHandler;
 import org.blocovermelho.ae2emicrafting.client.handler.Ae2RecipeHandler;
 import org.blocovermelho.ae2emicrafting.client.recipes.*;
+
+import java.util.List;
 
 public class Ae2EmiPlugin implements EmiPlugin {
     @Override
@@ -50,5 +54,11 @@ public class Ae2EmiPlugin implements EmiPlugin {
         registry.addCategory(Ae2Categories.CONDENSER);
         registry.addRecipe(new Ae2CondenserRecipe(CondenserOutput.MATTER_BALLS));
         registry.addRecipe(new Ae2CondenserRecipe(CondenserOutput.SINGULARITY));
+
+        registry.addCategory(Ae2Categories.ATTUNEMENT);
+        for (var entry : P2PTunnelAttunementInternal.getTagTunnels().entrySet()) {
+            registry.addRecipe(new Ae2AttunementRecipe(List.of(EmiIngredient.of(entry.getKey())),
+                    List.of(EmiStack.of(entry.getValue()))));
+        }
     }
 }
