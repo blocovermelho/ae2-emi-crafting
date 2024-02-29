@@ -1,5 +1,6 @@
 package org.blocovermelho.ae2emicrafting.client;
 
+import appeng.api.config.CondenserOutput;
 import appeng.client.gui.AEBaseScreen;
 import appeng.client.gui.me.items.PatternEncodingTermScreen;
 import appeng.core.definitions.AEParts;
@@ -17,10 +18,7 @@ import dev.emi.emi.api.widget.Bounds;
 import org.blocovermelho.ae2emicrafting.client.handler.Ae2PatternTerminalDragHandler;
 import org.blocovermelho.ae2emicrafting.client.handler.Ae2PatternTerminalHandler;
 import org.blocovermelho.ae2emicrafting.client.handler.Ae2RecipeHandler;
-import org.blocovermelho.ae2emicrafting.client.recipes.Ae2Categories;
-import org.blocovermelho.ae2emicrafting.client.recipes.Ae2ChargerRecipe;
-import org.blocovermelho.ae2emicrafting.client.recipes.Ae2InscriberRecipe;
-import org.blocovermelho.ae2emicrafting.client.recipes.ItemTransformationRecipe;
+import org.blocovermelho.ae2emicrafting.client.recipes.*;
 
 public class Ae2EmiPlugin implements EmiPlugin {
     @Override
@@ -48,5 +46,9 @@ public class Ae2EmiPlugin implements EmiPlugin {
 
         registry.addCategory(Ae2Categories.CHARGER);
         Ae2Categories.addAll(registry, ChargerRecipe.TYPE, Ae2ChargerRecipe::new);
+
+        registry.addCategory(Ae2Categories.CONDENSER);
+        registry.addRecipe(new Ae2CondenserRecipe(CondenserOutput.MATTER_BALLS));
+        registry.addRecipe(new Ae2CondenserRecipe(CondenserOutput.SINGULARITY));
     }
 }
