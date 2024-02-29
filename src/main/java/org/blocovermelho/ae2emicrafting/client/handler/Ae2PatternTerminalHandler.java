@@ -5,39 +5,29 @@ import appeng.integration.modules.jeirei.EncodingHelper;
 import appeng.menu.SlotSemantics;
 import appeng.menu.me.items.PatternEncodingTermMenu;
 import dev.emi.emi.api.recipe.EmiRecipe;
-import dev.emi.emi.api.recipe.VanillaEmiRecipeCategories;
 import dev.emi.emi.api.recipe.handler.EmiCraftContext;
 import dev.emi.emi.api.recipe.handler.StandardRecipeHandler;
 import dev.emi.emi.api.stack.EmiIngredient;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.Recipe;
-import net.minecraft.registry.Registries;
+import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.util.Identifier;
 
-
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
 public class Ae2PatternTerminalHandler<T extends PatternEncodingTermMenu> implements StandardRecipeHandler<T> {
-    List<Slot> CreativeInputSource = Registries.ITEM.stream().map((s) -> {
-        ItemStack is = new ItemStack(s);
-        is.setCount(64);
-
-        return new Slot(new SimpleInventory(is), 0, 0, 0);
-    }).toList();
-
-    //TODO: Handle Fluids
-//   List<Slot> CreativeFluidInputSource = Registries.FLUID.stream().map((s) -> {
-//
-//   })
-
     @Override
     public List<Slot> getInputSources(T handler) {
-        return CreativeInputSource;
+        return List.of();
+    }
+
+    @Override
+    public boolean canCraft (EmiRecipe recipe, EmiCraftContext<T> context) {
+        return true;
     }
 
     @Override
@@ -47,12 +37,7 @@ public class Ae2PatternTerminalHandler<T extends PatternEncodingTermMenu> implem
 
     @Override
     public boolean supportsRecipe(EmiRecipe recipe) {
-        // EncodingHelper.isSupportedCraftingRecipe();
-
-        return recipe.getCategory() == VanillaEmiRecipeCategories.CRAFTING ||
-        recipe.getCategory() == VanillaEmiRecipeCategories.SMITHING ||
-        recipe.getCategory() == VanillaEmiRecipeCategories.STONECUTTING;
-
+        return true;
     }
 
     @Override
@@ -65,11 +50,30 @@ public class Ae2PatternTerminalHandler<T extends PatternEncodingTermMenu> implem
         if(nm_recipe.isEmpty()) {
             return false;
         }
+        // AE2 Handled Recipes
+        List<RecipeSerializer<?>> acceptedSerializers = List.of(
+                // Crafting
+                RecipeSerializer.SHAPED,
+                RecipeSerializer.SHAPELESS,
+
+                RecipeSerializer.STONECUTTING,
+                RecipeSerializer.SMITHING_TRANSFORM
+        );
 
         List<List<GenericStack>> items = recipe.getInputs().stream().map(Ae2PatternTerminalHandler::intoGenericStack).toList();
 
-        EncodingHelper.encodeCraftingRecipe(menu, nm_recipe.get(), items, (x) -> true);
-    
+        if (acceptedSerializers.contains(nm_recipe.get().getSerializer())) {
+            EncodingHelper.encodeCraftingRecipe(menu, nm_recipe.get(), items, (x) -> true);
+        } else {
+            // Convert the recipe to a "Processing" recipe.
+            List<GenericStack> outputs = recipe.getOutputs().stream()
+                    .map(Ae2PatternTerminalHandler::intoGenericStack)
+                    .flatMap(Collection::stream)
+                    .toList();
+
+            EncodingHelper.encodeProcessingRecipe(menu, items, outputs);
+        }
+
         MinecraftClient.getInstance().setScreen(context.getScreen());
 
         return true;
