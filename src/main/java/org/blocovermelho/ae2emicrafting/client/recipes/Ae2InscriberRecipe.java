@@ -13,17 +13,11 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class Ae2InscriberRecipe implements EmiRecipe {
-    protected Identifier id;
-
-    protected List<EmiIngredient> input;
+public class Ae2InscriberRecipe extends BaseAe2Recipe {
     protected EmiIngredient top;
     protected EmiIngredient middle;
     protected EmiIngredient bottom;
 
-    protected final List<EmiIngredient> catalysts;
-    protected List<EmiStack> output;
-    protected int width, height;
     public Ae2InscriberRecipe(InscriberRecipe source) {
         this.id = source.getId();
 
@@ -57,36 +51,6 @@ public class Ae2InscriberRecipe implements EmiRecipe {
     public EmiRecipeCategory getCategory() {
         return Ae2Categories.INSCRIBER;
     }
-    @Override
-    public @Nullable Identifier getId() {
-        return id;
-    }
-
-    @Override
-    public List<EmiIngredient> getInputs() {
-        return input;
-    }
-
-    @Override
-    public List<EmiStack> getOutputs() {
-        return output;
-    }
-
-    @Override
-    public List<EmiIngredient> getCatalysts() {
-        return catalysts;
-    }
-
-    @Override
-    public int getDisplayWidth() {
-        return width;
-    }
-
-    @Override
-    public int getDisplayHeight() {
-        return height;
-    }
-
     @Override
     public void addWidgets(WidgetHolder widgets) {
         widgets.addTexture(AppEng.makeId("textures/guis/inscriber.png"), 0, 0, 97, 64, 44, 15);
