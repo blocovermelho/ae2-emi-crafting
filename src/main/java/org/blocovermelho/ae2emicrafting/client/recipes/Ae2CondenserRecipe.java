@@ -22,16 +22,15 @@ import java.util.stream.Stream;
 
 import static net.minecraft.text.Text.translatable;
 
-public class Ae2CondenserRecipe extends BaseAe2Recipe {
+public class Ae2CondenserRecipe extends VirtualAe2Recipe {
     private static final int PADDING = 7;
-    private static final PrimitiveIterator.OfInt ids = IntStream.iterate(0, n -> n + 1).iterator();
+
     private List<EmiStack> viableStorageComponents = Lists.newArrayList();
     private final CondenserOutput recipe;
 
     public Ae2CondenserRecipe(CondenserOutput source){
         this.recipe =  source;
-
-        this.id = new Identifier("emi", AppEng.MOD_ID + "/condenser/" + ids.next());
+        this.prefix = "condenser";
         this.width = 94 + 2 * PADDING;
         this.height = 48 + 2 * PADDING;
 
