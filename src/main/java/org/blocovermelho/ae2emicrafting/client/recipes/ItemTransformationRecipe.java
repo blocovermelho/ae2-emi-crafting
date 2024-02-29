@@ -17,12 +17,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class ItemTransformationRecipe implements EmiRecipe {
-    protected Identifier id;
-    protected List<EmiIngredient> input;
-    protected List<EmiStack> output;
-    protected int width, height;
-
+public class ItemTransformationRecipe extends BaseAe2Recipe {
     protected TransformRecipe recipe;
 
     public ItemTransformationRecipe(TransformRecipe source) {
@@ -44,31 +39,6 @@ public class ItemTransformationRecipe implements EmiRecipe {
     @Override
     public EmiRecipeCategory getCategory() {
         return Ae2Categories.WORLD_INTERACTION;
-    }
-
-    @Override
-    public @Nullable Identifier getId() {
-        return id;
-    }
-
-    @Override
-    public List<EmiIngredient> getInputs() {
-        return input;
-    }
-
-    @Override
-    public List<EmiStack> getOutputs() {
-        return output;
-    }
-
-    @Override
-    public int getDisplayWidth() {
-        return width;
-    }
-
-    @Override
-    public int getDisplayHeight() {
-        return height;
     }
 
     @Override
