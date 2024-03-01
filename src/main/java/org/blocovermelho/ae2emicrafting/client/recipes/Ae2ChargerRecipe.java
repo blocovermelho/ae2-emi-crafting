@@ -23,6 +23,9 @@ public class Ae2ChargerRecipe extends BasicEmiRecipe {
         super(Ae2CategoryHolder.CHARGER, source.getId(), 130,50);
         this.ingredient = EmiIngredient.of(source.getIngredient());
         this.result = EmiStack.of(source.getResultItem());
+
+        this.inputs.add(ingredient);
+        this.outputs.add(result);
     }
     @Override
     public void addWidgets(WidgetHolder widgets) {
