@@ -26,6 +26,6 @@ public enum TranslationKeys implements LocalizationEnum {
 
     @Override
     public String getTranslationKey() {
-        return "ae2.emi_integration." + name().toLowerCase(Locale.ROOT);
+        return "ae2-emi-crafting." + name().toLowerCase(Locale.ROOT);
     }
 }
