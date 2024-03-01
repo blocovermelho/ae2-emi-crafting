@@ -11,7 +11,7 @@ import org.blocovermelho.ae2emicrafting.client.helper.mapper.EmiStackHelper;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class Ae2PatternTerminalDragHandler implements EmiDragDropHandler<Screen> {
+public class Ae2BaseDragHandler implements EmiDragDropHandler<Screen> {
     @Override
     public boolean dropStack(Screen screen, EmiIngredient emiIngredient, int x, int y) {
         if (!(screen instanceof AEBaseScreen<?> aeScreen)) {
