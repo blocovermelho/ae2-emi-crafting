@@ -2,10 +2,8 @@ package org.blocovermelho.ae2emicrafting.client;
 
 import appeng.api.config.CondenserOutput;
 import appeng.api.features.P2PTunnelAttunementInternal;
-import appeng.client.gui.AEBaseScreen;
-import appeng.client.gui.me.items.PatternEncodingTermScreen;
+import appeng.core.definitions.AEItems;
 import appeng.core.definitions.AEParts;
-import appeng.menu.AEBaseMenu;
 import appeng.menu.me.items.CraftingTermMenu;
 import appeng.menu.me.items.PatternEncodingTermMenu;
 import appeng.recipes.handlers.ChargerRecipe;
@@ -16,10 +14,13 @@ import dev.emi.emi.api.EmiRegistry;
 import dev.emi.emi.api.recipe.VanillaEmiRecipeCategories;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
-import dev.emi.emi.api.widget.Bounds;
-import org.blocovermelho.ae2emicrafting.client.handler.Ae2PatternTerminalDragHandler;
-import org.blocovermelho.ae2emicrafting.client.handler.Ae2PatternTerminalHandler;
-import org.blocovermelho.ae2emicrafting.client.handler.Ae2RecipeHandler;
+import org.blocovermelho.ae2emicrafting.client.handler.*;
+import org.blocovermelho.ae2emicrafting.client.handler.generic.Ae2BaseScreenExclusionZones;
+import org.blocovermelho.ae2emicrafting.client.handler.generic.Ae2BaseStackProvider;
+import org.blocovermelho.ae2emicrafting.client.handler.generic.Ae2PatternTerminalDragHandler;
+import org.blocovermelho.ae2emicrafting.client.helper.mapper.EmiFluidStackConverter;
+import org.blocovermelho.ae2emicrafting.client.helper.mapper.EmiItemStackConverter;
+import org.blocovermelho.ae2emicrafting.client.helper.mapper.EmiStackConverters;
 import org.blocovermelho.ae2emicrafting.client.recipes.*;
 
 import java.util.List;
@@ -27,20 +28,18 @@ import java.util.List;
 public class Ae2EmiPlugin implements EmiPlugin {
     @Override
     public void register(EmiRegistry registry) {
-        registry.addWorkstation(VanillaEmiRecipeCategories.CRAFTING, EmiStack.of(AEParts.CRAFTING_TERMINAL.stack()));
-        registry.addRecipeHandler(CraftingTermMenu.TYPE, new Ae2RecipeHandler<>());
-        registry.addDragDropHandler(PatternEncodingTermScreen.class, new Ae2PatternTerminalDragHandler<>());
-        registry.addRecipeHandler(PatternEncodingTermMenu.TYPE, new Ae2PatternTerminalHandler<>());
+        EmiStackConverters.register(new EmiItemStackConverter());
+        EmiStackConverters.register(new EmiFluidStackConverter());
 
-        registry.addGenericExclusionArea(((screen, consumer) -> {
-            if (screen instanceof AEBaseScreen<? extends AEBaseMenu> baseScreen) {
-                baseScreen
-                        .getExclusionZones()
-                        .stream()
-                        .map(ez -> new Bounds(ez.getX(), ez.getY(), ez.getWidth(), ez.getHeight()))
-                        .forEach(consumer);
-            }
-        }));
+        registry.addGenericExclusionArea(new Ae2BaseScreenExclusionZones());
+        registry.addGenericStackProvider(new Ae2BaseStackProvider());
+        registry.addGenericDragDropHandler(new Ae2PatternTerminalDragHandler());
+
+        registry.addWorkstation(VanillaEmiRecipeCategories.CRAFTING, EmiStack.of(AEParts.CRAFTING_TERMINAL.stack()));
+        registry.addWorkstation(VanillaEmiRecipeCategories.CRAFTING, EmiStack.of(AEItems.WIRELESS_CRAFTING_TERMINAL.stack()));
+
+        registry.addRecipeHandler(CraftingTermMenu.TYPE, new Ae2RecipeHandler<>());
+        registry.addRecipeHandler(PatternEncodingTermMenu.TYPE, new Ae2PatternTerminalHandler<>());
 
         registry.addCategory(Ae2Categories.WORLD_INTERACTION);
         Ae2Categories.addAll(registry, TransformRecipe.TYPE, ItemTransformationRecipe::new);

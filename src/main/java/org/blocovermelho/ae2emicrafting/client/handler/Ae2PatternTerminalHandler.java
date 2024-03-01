@@ -7,13 +7,12 @@ import appeng.menu.me.items.PatternEncodingTermMenu;
 import dev.emi.emi.api.recipe.EmiRecipe;
 import dev.emi.emi.api.recipe.handler.EmiCraftContext;
 import dev.emi.emi.api.recipe.handler.StandardRecipeHandler;
-import dev.emi.emi.api.stack.EmiIngredient;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.util.Identifier;
-import org.blocovermelho.ae2emicrafting.client.helper.mapper.EmiStackConvertible;
+import org.blocovermelho.ae2emicrafting.client.helper.mapper.EmiStackHelper;
 
 import java.util.List;
 import java.util.Optional;
@@ -49,6 +48,7 @@ public class Ae2PatternTerminalHandler<T extends PatternEncodingTermMenu> implem
         if(nm_recipe.isEmpty()) {
             return false;
         }
+
         // AE2 Handled Recipes
         List<RecipeSerializer<?>> acceptedSerializers = List.of(
                 // Crafting
@@ -59,19 +59,13 @@ public class Ae2PatternTerminalHandler<T extends PatternEncodingTermMenu> implem
                 RecipeSerializer.SMITHING_TRANSFORM
         );
 
-        List<List<GenericStack>> items = recipe.getInputs()
-                .stream()
-                .map(EmiIngredient::getEmiStacks)
-                .map(x -> x.stream().map(EmiStackConvertible.AEGenericStack::into).toList())
-                .toList();
+        List<List<GenericStack>> items = EmiStackHelper.ofInputs(recipe);
 
         if (acceptedSerializers.contains(nm_recipe.get().getSerializer())) {
             EncodingHelper.encodeCraftingRecipe(menu, nm_recipe.get(), items, (x) -> true);
         } else {
             // Convert the recipe to a "Processing" recipe.
-            List<GenericStack> outputs = recipe.getOutputs().stream()
-                    .map(EmiStackConvertible.AEGenericStack::into)
-                    .toList();
+            List<GenericStack> outputs = EmiStackHelper.ofOutputs(recipe);
 
             EncodingHelper.encodeProcessingRecipe(menu, items, outputs);
         }
