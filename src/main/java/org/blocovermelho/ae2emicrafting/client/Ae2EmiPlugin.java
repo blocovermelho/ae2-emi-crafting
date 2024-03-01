@@ -55,9 +55,6 @@ public class Ae2EmiPlugin implements EmiPlugin {
         registry.addRecipe(new Ae2CondenserRecipe(CondenserOutput.SINGULARITY));
 
         registry.addCategory(Ae2Categories.ATTUNEMENT);
-        for (var entry : P2PTunnelAttunementInternal.getTagTunnels().entrySet()) {
-            registry.addRecipe(new Ae2AttunementRecipe(List.of(EmiIngredient.of(entry.getKey())),
-                    List.of(EmiStack.of(entry.getValue()))));
-        }
+        registry.addDeferredRecipes(Ae2RecipeHolder::registerP2PAttunements);
     }
 }
