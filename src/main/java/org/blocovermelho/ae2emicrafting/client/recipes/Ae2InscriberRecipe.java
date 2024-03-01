@@ -3,13 +3,12 @@ package org.blocovermelho.ae2emicrafting.client.recipes;
 import appeng.core.AppEng;
 import appeng.core.definitions.AEItems;
 import appeng.recipes.handlers.InscriberRecipe;
-import dev.emi.emi.api.recipe.EmiRecipe;
 import dev.emi.emi.api.recipe.EmiRecipeCategory;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.WidgetHolder;
 import net.minecraft.util.Identifier;
-import org.jetbrains.annotations.Nullable;
+import org.blocovermelho.ae2emicrafting.client.recipes.category.Ae2CategoryHolder;
 
 import java.util.List;
 
@@ -49,7 +48,7 @@ public class Ae2InscriberRecipe extends BaseAe2Recipe {
 
     @Override
     public EmiRecipeCategory getCategory() {
-        return Ae2Categories.INSCRIBER;
+        return Ae2CategoryHolder.INSCRIBER;
     }
     @Override
     public void addWidgets(WidgetHolder widgets) {

@@ -4,7 +4,6 @@ import appeng.core.definitions.AEBlocks;
 import appeng.core.localization.ItemModText;
 import appeng.recipes.transform.TransformCircumstance;
 import appeng.recipes.transform.TransformRecipe;
-import dev.emi.emi.api.recipe.EmiRecipe;
 import dev.emi.emi.api.recipe.EmiRecipeCategory;
 import dev.emi.emi.api.render.EmiTexture;
 import dev.emi.emi.api.stack.EmiIngredient;
@@ -12,8 +11,7 @@ import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.WidgetHolder;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.Items;
-import net.minecraft.util.Identifier;
-import org.jetbrains.annotations.Nullable;
+import org.blocovermelho.ae2emicrafting.client.recipes.category.Ae2CategoryHolder;
 
 import java.util.List;
 
@@ -38,7 +36,7 @@ public class ItemTransformationRecipe extends BaseAe2Recipe {
     }
     @Override
     public EmiRecipeCategory getCategory() {
-        return Ae2Categories.WORLD_INTERACTION;
+        return Ae2CategoryHolder.WORLD_INTERACTION;
     }
 
     @Override

@@ -1,7 +1,6 @@
 package org.blocovermelho.ae2emicrafting.client;
 
 import appeng.api.config.CondenserOutput;
-import appeng.api.features.P2PTunnelAttunementInternal;
 import appeng.core.definitions.AEItems;
 import appeng.core.definitions.AEParts;
 import appeng.menu.me.items.CraftingTermMenu;
@@ -12,18 +11,15 @@ import appeng.recipes.transform.TransformRecipe;
 import dev.emi.emi.api.EmiPlugin;
 import dev.emi.emi.api.EmiRegistry;
 import dev.emi.emi.api.recipe.VanillaEmiRecipeCategories;
-import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import org.blocovermelho.ae2emicrafting.client.handler.*;
 import org.blocovermelho.ae2emicrafting.client.handler.generic.Ae2BaseScreenExclusionZones;
-import org.blocovermelho.ae2emicrafting.client.handler.generic.Ae2BaseStackProvider;
 import org.blocovermelho.ae2emicrafting.client.handler.generic.Ae2PatternTerminalDragHandler;
 import org.blocovermelho.ae2emicrafting.client.helper.mapper.EmiFluidStackConverter;
 import org.blocovermelho.ae2emicrafting.client.helper.mapper.EmiItemStackConverter;
 import org.blocovermelho.ae2emicrafting.client.helper.mapper.EmiStackConverters;
 import org.blocovermelho.ae2emicrafting.client.recipes.*;
-
-import java.util.List;
+import org.blocovermelho.ae2emicrafting.client.recipes.category.Ae2CategoryHolder;
 
 public class Ae2EmiPlugin implements EmiPlugin {
     @Override
@@ -41,20 +37,20 @@ public class Ae2EmiPlugin implements EmiPlugin {
         registry.addRecipeHandler(CraftingTermMenu.TYPE, new Ae2RecipeHandler<>());
         registry.addRecipeHandler(PatternEncodingTermMenu.TYPE, new Ae2PatternTerminalHandler<>());
 
-        registry.addCategory(Ae2Categories.WORLD_INTERACTION);
-        Ae2Categories.addAll(registry, TransformRecipe.TYPE, ItemTransformationRecipe::new);
+        registry.addCategory(Ae2CategoryHolder.WORLD_INTERACTION);
+        Ae2CategoryHolder.addAll(registry, TransformRecipe.TYPE, ItemTransformationRecipe::new);
 
-        registry.addCategory(Ae2Categories.INSCRIBER);
-        Ae2Categories.addAll(registry, InscriberRecipe.TYPE, Ae2InscriberRecipe::new);
+        registry.addCategory(Ae2CategoryHolder.INSCRIBER);
+        Ae2CategoryHolder.addAll(registry, InscriberRecipe.TYPE, Ae2InscriberRecipe::new);
 
-        registry.addCategory(Ae2Categories.CHARGER);
-        Ae2Categories.addAll(registry, ChargerRecipe.TYPE, Ae2ChargerRecipe::new);
+        registry.addCategory(Ae2CategoryHolder.CHARGER);
+        Ae2CategoryHolder.addAll(registry, ChargerRecipe.TYPE, Ae2ChargerRecipe::new);
 
-        registry.addCategory(Ae2Categories.CONDENSER);
+        registry.addCategory(Ae2CategoryHolder.CONDENSER);
         registry.addRecipe(new Ae2CondenserRecipe(CondenserOutput.MATTER_BALLS));
         registry.addRecipe(new Ae2CondenserRecipe(CondenserOutput.SINGULARITY));
 
-        registry.addCategory(Ae2Categories.ATTUNEMENT);
+        registry.addCategory(Ae2CategoryHolder.ATTUNEMENT);
         registry.addDeferredRecipes(Ae2RecipeHolder::registerP2PAttunements);
     }
 }

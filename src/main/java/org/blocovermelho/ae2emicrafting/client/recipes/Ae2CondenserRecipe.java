@@ -12,12 +12,10 @@ import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.WidgetHolder;
 import net.minecraft.client.gui.tooltip.TooltipComponent;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Identifier;
 import org.apache.commons.compress.utils.Lists;
+import org.blocovermelho.ae2emicrafting.client.recipes.category.Ae2CategoryHolder;
 
 import java.util.List;
-import java.util.PrimitiveIterator;
-import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import static net.minecraft.text.Text.translatable;
@@ -46,7 +44,7 @@ public class Ae2CondenserRecipe extends VirtualAe2Recipe {
 
     @Override
     public EmiRecipeCategory getCategory() {
-        return Ae2Categories.CONDENSER;
+        return Ae2CategoryHolder.CONDENSER;
     }
 
     @Override

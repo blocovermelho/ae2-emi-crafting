@@ -8,6 +8,7 @@ import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.WidgetHolder;
 import net.minecraft.text.MutableText;
+import org.blocovermelho.ae2emicrafting.client.recipes.category.Ae2CategoryHolder;
 
 import java.util.List;
 
@@ -28,7 +29,7 @@ public class Ae2ChargerRecipe extends BaseAe2Recipe {
     }
     @Override
     public EmiRecipeCategory getCategory() {
-        return Ae2Categories.CHARGER;
+        return Ae2CategoryHolder.CHARGER;
     }
 
     @Override
