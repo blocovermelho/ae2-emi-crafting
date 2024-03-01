@@ -1,6 +1,7 @@
 package org.blocovermelho.ae2emicrafting.client;
 
 import appeng.api.config.CondenserOutput;
+import appeng.core.definitions.AEBlocks;
 import appeng.core.definitions.AEItems;
 import appeng.core.definitions.AEParts;
 import appeng.menu.me.items.CraftingTermMenu;
@@ -12,7 +13,8 @@ import dev.emi.emi.api.EmiPlugin;
 import dev.emi.emi.api.EmiRegistry;
 import dev.emi.emi.api.recipe.VanillaEmiRecipeCategories;
 import dev.emi.emi.api.stack.EmiStack;
-import org.blocovermelho.ae2emicrafting.client.handler.*;
+import org.blocovermelho.ae2emicrafting.client.handler.Ae2PatternTerminalHandler;
+import org.blocovermelho.ae2emicrafting.client.handler.Ae2RecipeHandler;
 import org.blocovermelho.ae2emicrafting.client.handler.generic.Ae2BaseScreenExclusionZones;
 import org.blocovermelho.ae2emicrafting.client.handler.generic.Ae2PatternTerminalDragHandler;
 import org.blocovermelho.ae2emicrafting.client.helper.mapper.EmiFluidStackConverter;
@@ -41,12 +43,16 @@ public class Ae2EmiPlugin implements EmiPlugin {
         Ae2CategoryHolder.addAll(registry, TransformRecipe.TYPE, ItemTransformationRecipe::new);
 
         registry.addCategory(Ae2CategoryHolder.INSCRIBER);
+        registry.addWorkstation(Ae2CategoryHolder.INSCRIBER, EmiStack.of(AEBlocks.INSCRIBER));
         Ae2CategoryHolder.addAll(registry, InscriberRecipe.TYPE, Ae2InscriberRecipe::new);
 
         registry.addCategory(Ae2CategoryHolder.CHARGER);
+        registry.addWorkstation(Ae2CategoryHolder.CHARGER, EmiStack.of(AEBlocks.CHARGER));
+        registry.addWorkstation(Ae2CategoryHolder.CHARGER, EmiStack.of(AEBlocks.CRANK));
         Ae2CategoryHolder.addAll(registry, ChargerRecipe.TYPE, Ae2ChargerRecipe::new);
 
         registry.addCategory(Ae2CategoryHolder.CONDENSER);
+        registry.addWorkstation(Ae2CategoryHolder.CONDENSER, EmiStack.of(AEBlocks.CONDENSER));
         registry.addRecipe(new Ae2CondenserRecipe(CondenserOutput.MATTER_BALLS));
         registry.addRecipe(new Ae2CondenserRecipe(CondenserOutput.SINGULARITY));
 
