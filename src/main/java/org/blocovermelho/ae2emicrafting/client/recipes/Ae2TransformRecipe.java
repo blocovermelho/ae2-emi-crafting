@@ -15,10 +15,10 @@ import org.blocovermelho.ae2emicrafting.client.recipes.category.Ae2CategoryHolde
 
 import java.util.List;
 
-public class ItemTransformationRecipe extends BaseAe2Recipe {
+public class Ae2TransformRecipe extends BaseAe2Recipe {
     protected TransformRecipe recipe;
 
-    public ItemTransformationRecipe(TransformRecipe source) {
+    public Ae2TransformRecipe(TransformRecipe source) {
         this.recipe = source;
 
         this.id = source.getId();

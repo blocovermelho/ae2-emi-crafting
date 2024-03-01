@@ -40,7 +40,7 @@ public class Ae2EmiPlugin implements EmiPlugin {
         registry.addRecipeHandler(PatternEncodingTermMenu.TYPE, new Ae2PatternTerminalHandler<>());
 
         registry.addCategory(Ae2CategoryHolder.WORLD_INTERACTION);
-        Ae2CategoryHolder.addAll(registry, TransformRecipe.TYPE, ItemTransformationRecipe::new);
+        Ae2CategoryHolder.addAll(registry, TransformRecipe.TYPE, Ae2TransformRecipe::new);
 
         registry.addCategory(Ae2CategoryHolder.INSCRIBER);
         registry.addWorkstation(Ae2CategoryHolder.INSCRIBER, EmiStack.of(AEBlocks.INSCRIBER));
