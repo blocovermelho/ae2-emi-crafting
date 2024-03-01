@@ -8,6 +8,8 @@ import dev.emi.emi.api.widget.WidgetHolder;
 import net.minecraft.text.Text;
 import org.blocovermelho.ae2emicrafting.client.recipes.category.Ae2CategoryHolder;
 
+import java.util.List;
+
 public class Ae2AttunementRecipe extends BasicEmiRecipe {
     private final EmiIngredient input;
     private final EmiStack p2pTunnel;
@@ -18,6 +20,9 @@ public class Ae2AttunementRecipe extends BasicEmiRecipe {
         this.input = input;
         this.p2pTunnel = p2pTunnel;
         this.description = description;
+
+        this.inputs.add(input);
+        this.outputs.add(p2pTunnel);
     }
 
     @Override
