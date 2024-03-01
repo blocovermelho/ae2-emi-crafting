@@ -1,13 +1,24 @@
 package org.blocovermelho.ae2emicrafting.client.recipes;
 
 import appeng.api.features.P2PTunnelAttunementInternal;
+import appeng.core.AEConfig;
+import appeng.core.definitions.AEBlocks;
+import appeng.core.definitions.AEItems;
+import appeng.core.definitions.ItemDefinition;
+import appeng.core.localization.GuiText;
 import appeng.core.localization.ItemModText;
+import appeng.core.localization.LocalizationEnum;
 import dev.emi.emi.api.EmiApi;
+import dev.emi.emi.api.EmiRegistry;
+import dev.emi.emi.api.recipe.EmiInfoRecipe;
 import dev.emi.emi.api.recipe.EmiRecipe;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
+import net.minecraft.text.Text;
 import org.blocovermelho.ae2emicrafting.client.recipes.generator.FacadeGenerator;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
 
@@ -46,5 +57,29 @@ public class Ae2RecipeHolder {
                 .filter(Optional::isPresent)
                 .map(Optional::get)
                 .forEach(recipeConsumer);
+    }
+
+    public static void registerDescriptions(EmiRegistry registry) {
+        addDescription(registry, AEItems.CERTUS_QUARTZ_CRYSTAL, GuiText.CertusQuartzObtain);
+
+        if (AEConfig.instance().isSpawnPressesInMeteoritesEnabled()) {
+            addDescription(registry, AEItems.LOGIC_PROCESSOR_PRESS, GuiText.inWorldCraftingPresses);
+            addDescription(registry, AEItems.CALCULATION_PROCESSOR_PRESS,
+                    GuiText.inWorldCraftingPresses);
+            addDescription(registry, AEItems.ENGINEERING_PROCESSOR_PRESS,
+                    GuiText.inWorldCraftingPresses);
+            addDescription(registry, AEItems.SILICON_PRESS, GuiText.inWorldCraftingPresses);
+        }
+
+        addDescription(registry, AEBlocks.CRANK, ItemModText.CRANK_DESCRIPTION);
+    }
+
+    private static void addDescription(EmiRegistry registry, ItemDefinition<?> item, LocalizationEnum... lines) {
+        var info = new EmiInfoRecipe(
+                List.of(EmiStack.of(item)),
+                Arrays.stream(lines).<Text>map(LocalizationEnum::text).toList(),
+                null);
+        registry.addRecipe(info);
+
     }
 }

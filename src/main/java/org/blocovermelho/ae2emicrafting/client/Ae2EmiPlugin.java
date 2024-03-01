@@ -71,5 +71,7 @@ public class Ae2EmiPlugin implements EmiPlugin {
         if (AEConfig.instance().isEnableFacadeRecipesInJEI()) {
             registry.addDeferredRecipes(Ae2RecipeHolder::registerFacades);
         }
+
+        Ae2RecipeHolder.registerDescriptions(registry);
     }
 }
