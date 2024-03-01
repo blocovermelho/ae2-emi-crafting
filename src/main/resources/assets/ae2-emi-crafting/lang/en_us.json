@@ -1,7 +1,8 @@
 {
-  "emi.category.ae2.condenser": "Matter Condenser",
-  "emi.category.ae2.inscriber": "Inscriber",
-  "emi.category.ae2.attunement": "P2P Tunnel Attunement",
-  "emi.category.ae2.item_transformation": "In-World Transformation",
-  "emi.category.ae2.charger": "Charger"
+  "ae2-emi-crafting.category_condenser": "Matter Condenser",
+  "ae2-emi-crafting.category_inscriber": "Inscriber",
+  "ae2-emi-crafting.category_attunement": "P2P Tunnel Attunement",
+  "ae2-emi-crafting.category_transform": "In-World Transformation",
+  "ae2-emi-crafting.category_charger": "Charger",
+  "ae2-emi-crafting.category_entropy_manipulator": "Entropy Manipulator"
 }
