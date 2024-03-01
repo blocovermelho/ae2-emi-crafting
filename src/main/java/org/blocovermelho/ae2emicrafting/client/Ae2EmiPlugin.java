@@ -18,7 +18,7 @@ import dev.emi.emi.api.stack.EmiStack;
 import org.blocovermelho.ae2emicrafting.client.handler.Ae2CraftingHandler;
 import org.blocovermelho.ae2emicrafting.client.handler.Ae2PatternTerminalHandler;
 import org.blocovermelho.ae2emicrafting.client.handler.generic.Ae2BaseScreenExclusionZones;
-import org.blocovermelho.ae2emicrafting.client.handler.generic.Ae2PatternTerminalDragHandler;
+import org.blocovermelho.ae2emicrafting.client.handler.generic.Ae2BaseDragHandler;
 import org.blocovermelho.ae2emicrafting.client.helper.mapper.EmiFluidStackConverter;
 import org.blocovermelho.ae2emicrafting.client.helper.mapper.EmiItemStackConverter;
 import org.blocovermelho.ae2emicrafting.client.helper.mapper.EmiStackConverters;
@@ -33,7 +33,7 @@ public class Ae2EmiPlugin implements EmiPlugin {
 
         registry.addGenericExclusionArea(new Ae2BaseScreenExclusionZones());
 //      registry.addGenericStackProvider(new Ae2BaseStackProvider());
-        registry.addGenericDragDropHandler(new Ae2PatternTerminalDragHandler());
+        registry.addGenericDragDropHandler(new Ae2BaseDragHandler());
 
         registry.addWorkstation(VanillaEmiRecipeCategories.CRAFTING, EmiStack.of(AEParts.CRAFTING_TERMINAL.stack()));
         registry.addWorkstation(VanillaEmiRecipeCategories.CRAFTING, EmiStack.of(AEItems.WIRELESS_CRAFTING_TERMINAL.stack()));
