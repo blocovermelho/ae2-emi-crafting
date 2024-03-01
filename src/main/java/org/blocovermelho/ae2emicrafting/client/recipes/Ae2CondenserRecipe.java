@@ -9,23 +9,18 @@ import appeng.core.definitions.ItemDefinition;
 import appeng.core.localization.ButtonToolTips;
 import com.google.common.base.Splitter;
 import dev.emi.emi.api.recipe.BasicEmiRecipe;
-import dev.emi.emi.api.recipe.EmiRecipeCategory;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.WidgetHolder;
-import net.minecraft.client.gui.tooltip.TooltipComponent;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import org.apache.commons.compress.utils.Lists;
 import org.blocovermelho.ae2emicrafting.client.recipes.category.Ae2CategoryHolder;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Stream;
-
-import static net.minecraft.text.Text.translatable;
 
 public class Ae2CondenserRecipe extends BasicEmiRecipe {
     private final CondenserOutput type;
@@ -103,7 +98,6 @@ public class Ae2CondenserRecipe extends BasicEmiRecipe {
                 return Collections.emptyList();
 
     }
-
     return Splitter.on("\n")
             .splitToList(Text.translatable(key, type.requiredPower).getString())
             .stream()
