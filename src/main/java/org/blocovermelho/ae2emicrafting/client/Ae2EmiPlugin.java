@@ -6,6 +6,7 @@ import appeng.core.definitions.AEItems;
 import appeng.core.definitions.AEParts;
 import appeng.menu.me.items.CraftingTermMenu;
 import appeng.menu.me.items.PatternEncodingTermMenu;
+import appeng.recipes.entropy.EntropyRecipe;
 import appeng.recipes.handlers.ChargerRecipe;
 import appeng.recipes.handlers.InscriberRecipe;
 import appeng.recipes.transform.TransformRecipe;
@@ -22,6 +23,7 @@ import org.blocovermelho.ae2emicrafting.client.helper.mapper.EmiItemStackConvert
 import org.blocovermelho.ae2emicrafting.client.helper.mapper.EmiStackConverters;
 import org.blocovermelho.ae2emicrafting.client.recipes.*;
 import org.blocovermelho.ae2emicrafting.client.recipes.category.Ae2CategoryHolder;
+import org.blocovermelho.ae2emicrafting.client.recipes.category.Ae2RecipeCategory;
 
 public class Ae2EmiPlugin implements EmiPlugin {
     @Override
@@ -55,6 +57,10 @@ public class Ae2EmiPlugin implements EmiPlugin {
         registry.addWorkstation(Ae2CategoryHolder.CONDENSER, EmiStack.of(AEBlocks.CONDENSER));
         registry.addRecipe(new Ae2CondenserRecipe(CondenserOutput.MATTER_BALLS));
         registry.addRecipe(new Ae2CondenserRecipe(CondenserOutput.SINGULARITY));
+
+        registry.addCategory(Ae2CategoryHolder.ENTROPY);
+        registry.addWorkstation(Ae2CategoryHolder.ENTROPY, EmiStack.of(AEItems.ENTROPY_MANIPULATOR));
+        Ae2CategoryHolder.addAll(registry, EntropyRecipe.TYPE, Ae2EntropyManipulatorRecipe::new);
 
         registry.addCategory(Ae2CategoryHolder.ATTUNEMENT);
         registry.addDeferredRecipes(Ae2RecipeHolder::registerP2PAttunements);

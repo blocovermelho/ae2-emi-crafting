@@ -5,6 +5,7 @@ import appeng.core.definitions.AEBlocks;
 import appeng.core.definitions.AEItems;
 import appeng.core.definitions.AEParts;
 import appeng.core.localization.LocalizationEnum;
+import appeng.recipes.entropy.EntropyRecipe;
 import appeng.recipes.handlers.ChargerRecipe;
 import appeng.recipes.handlers.InscriberRecipe;
 import appeng.recipes.transform.TransformRecipe;
@@ -46,6 +47,13 @@ public class Ae2CategoryHolder {
             EmiStack.of(AEBlocks.CONDENSER),
             TranslationKeys.CATEGORY_CONDENSER
     );
+
+    public static Ae2RecipeCategory ENTROPY = into(
+            EntropyRecipe.TYPE_ID,
+            EmiStack.of(AEItems.ENTROPY_MANIPULATOR),
+            TranslationKeys.CATEGORY_ENTROPY_MANIPULATOR
+    );
+
     private static Ae2RecipeCategory into(Identifier identifier, EmiRenderable icon, LocalizationEnum name) {
         return new Ae2RecipeCategory(identifier, icon, name);
     }
