@@ -6,7 +6,9 @@ import dev.emi.emi.api.EmiApi;
 import dev.emi.emi.api.recipe.EmiRecipe;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
+import org.blocovermelho.ae2emicrafting.client.recipes.generator.FacadeGenerator;
 
+import java.util.Optional;
 import java.util.function.Consumer;
 
 public class Ae2RecipeHolder {
@@ -36,5 +38,13 @@ public class Ae2RecipeHolder {
                             EmiStack.of(entry.getValue()),
                             ItemModText.P2P_TAG_ATTUNEMENT.text()));
         }
+    }
+
+    public static void registerFacades(Consumer<EmiRecipe> recipeConsumer) {
+        EmiApi.getIndexStacks().stream()
+                .map(FacadeGenerator::of)
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .forEach(recipeConsumer);
     }
 }
