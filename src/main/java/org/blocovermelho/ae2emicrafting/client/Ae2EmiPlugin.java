@@ -1,6 +1,9 @@
 package org.blocovermelho.ae2emicrafting.client;
 
 import appeng.api.config.CondenserOutput;
+import appeng.core.AEConfig;
+import appeng.core.AppEng;
+import appeng.core.AppEngClient;
 import appeng.core.definitions.AEBlocks;
 import appeng.core.definitions.AEItems;
 import appeng.core.definitions.AEParts;
@@ -64,5 +67,9 @@ public class Ae2EmiPlugin implements EmiPlugin {
 
         registry.addCategory(Ae2CategoryHolder.ATTUNEMENT);
         registry.addDeferredRecipes(Ae2RecipeHolder::registerP2PAttunements);
+
+        if (AEConfig.instance().isEnableFacadeRecipesInJEI()) {
+            registry.addDeferredRecipes(Ae2RecipeHolder::registerFacades);
+        }
     }
 }
