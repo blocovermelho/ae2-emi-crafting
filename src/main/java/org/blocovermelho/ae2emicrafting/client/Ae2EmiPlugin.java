@@ -32,7 +32,7 @@ public class Ae2EmiPlugin implements EmiPlugin {
         EmiStackConverters.register(new EmiFluidStackConverter());
 
         registry.addGenericExclusionArea(new Ae2BaseScreenExclusionZones());
-        registry.addGenericStackProvider(new Ae2BaseStackProvider());
+//      registry.addGenericStackProvider(new Ae2BaseStackProvider());
         registry.addGenericDragDropHandler(new Ae2PatternTerminalDragHandler());
 
         registry.addWorkstation(VanillaEmiRecipeCategories.CRAFTING, EmiStack.of(AEParts.CRAFTING_TERMINAL.stack()));
