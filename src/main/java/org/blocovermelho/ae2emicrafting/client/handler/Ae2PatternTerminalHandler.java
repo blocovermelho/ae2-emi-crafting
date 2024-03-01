@@ -45,7 +45,7 @@ public class Ae2PatternTerminalHandler<T extends PatternEncodingTermMenu> implem
         Optional<? extends Recipe<?>> nm_recipe = menu.getPlayer().getWorld().getRecipeManager().get(recipeId);
 
         // So call me Maybe<T>
-        if(nm_recipe.isEmpty()) {
+        if (nm_recipe.isEmpty()) {
             return false;
         }
 
@@ -59,15 +59,15 @@ public class Ae2PatternTerminalHandler<T extends PatternEncodingTermMenu> implem
                 RecipeSerializer.SMITHING_TRANSFORM
         );
 
-        List<List<GenericStack>> items = EmiStackHelper.ofInputs(recipe);
+        List<List<GenericStack>> inputs = EmiStackHelper.ofInputs(recipe);
 
         if (acceptedSerializers.contains(nm_recipe.get().getSerializer())) {
-            EncodingHelper.encodeCraftingRecipe(menu, nm_recipe.get(), items, (x) -> true);
+            EncodingHelper.encodeCraftingRecipe(menu, nm_recipe.get(), inputs, stack -> true);
         } else {
             // Convert the recipe to a "Processing" recipe.
             List<GenericStack> outputs = EmiStackHelper.ofOutputs(recipe);
 
-            EncodingHelper.encodeProcessingRecipe(menu, items, outputs);
+            EncodingHelper.encodeProcessingRecipe(menu, inputs, outputs);
         }
 
         MinecraftClient.getInstance().setScreen(context.getScreen());
