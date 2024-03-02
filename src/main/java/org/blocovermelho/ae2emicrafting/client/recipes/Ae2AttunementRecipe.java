@@ -1,32 +1,38 @@
 package org.blocovermelho.ae2emicrafting.client.recipes;
 
-import dev.emi.emi.api.recipe.EmiRecipeCategory;
+import dev.emi.emi.api.recipe.BasicEmiRecipe;
 import dev.emi.emi.api.render.EmiTexture;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.WidgetHolder;
+import net.minecraft.text.Text;
+import org.blocovermelho.ae2emicrafting.client.recipes.category.Ae2CategoryHolder;
 
 import java.util.List;
 
-public class Ae2AttunementRecipe extends VirtualAe2Recipe {
-    public Ae2AttunementRecipe(List<EmiIngredient> input, List<EmiStack> output) {
-        this.prefix = "attunement";
+public class Ae2AttunementRecipe extends BasicEmiRecipe {
+    private final EmiIngredient input;
+    private final EmiStack p2pTunnel;
+    private final Text description;
+
+    public Ae2AttunementRecipe(EmiIngredient input, EmiStack p2pTunnel, Text description) {
+        super(Ae2CategoryHolder.ATTUNEMENT, null, 150, 36);
         this.input = input;
-        this.output = output;
+        this.p2pTunnel = p2pTunnel;
+        this.description = description;
 
-        this.width = 150;
-        this.height = 36;
-    }
-
-    @Override
-    public EmiRecipeCategory getCategory() {
-        return Ae2Categories.ATTUNEMENT;
+        this.inputs.add(input);
+        this.outputs.add(p2pTunnel);
     }
 
     @Override
     public void addWidgets(WidgetHolder widgets) {
-        widgets.addTexture(EmiTexture.EMPTY_ARROW, width / 2 - 41 + 27, height / 2 - 13 + 4);
-        widgets.addSlot(EmiIngredient.of(input, input.size()), width / 2 - 41 + 4, height / 2 - 13 + 4);
-        widgets.addSlot(output.get(0), width / 2 - 41 + 56, height / 2 - 13 + 4);
+        var originX = width / 2 - 41;
+        var originY = height / 2 - 13;
+
+        widgets.addSlot(input, originX + 3, originY + 4)
+                .appendTooltip(description);
+        widgets.addTexture(EmiTexture.EMPTY_ARROW, originX + 27, originY + 4);
+        widgets.addSlot(p2pTunnel, originX + 60, originY + 4);
     }
 }
