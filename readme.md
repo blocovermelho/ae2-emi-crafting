@@ -1,4 +1,7 @@
 # AE2 EMI Crafting Integration
+![Modrinth Downloads](https://img.shields.io/modrinth/dt/eVAp8Nkw?style=for-the-badge&logo=modrinth)
+![Modrinth Version](https://img.shields.io/modrinth/v/eVAp8Nkw?style=for-the-badge&logo=modrinth)
+![CurseForge Version](https://img.shields.io/curseforge/v/923210?style=for-the-badge&logo=curseforge)
 
 It does what it says in the tin and nothing more.
 
