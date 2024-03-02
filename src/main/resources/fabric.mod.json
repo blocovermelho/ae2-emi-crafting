@@ -22,5 +22,8 @@
     "fabricloader": ">=${loader_version}",
     "minecraft": "${minecraft_version}",
     "emi": ">=${emi_version}"
-  }
+  },
+  "mixins": [
+    "ae2-emi-crafting.mixin.json"
+  ]
 }

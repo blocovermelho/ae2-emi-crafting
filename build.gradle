@@ -48,6 +48,9 @@ dependencies {
     // Cloth Config API (Required by AE2WTLib)
     modLocalRuntime("maven.modrinth:9s6osm5g:${project.ccapi_version}+fabric")
 
+    // ExMI
+    modImplementation("maven.modrinth:bpRHnWUb:${project.ExMI_version}")
+
 }
 
 processResources {
