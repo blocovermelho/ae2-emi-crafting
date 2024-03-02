@@ -1,6 +1,5 @@
 package org.blocovermelho.ae2emicrafting.client.helper.mapper;
 
-import appeng.api.stacks.AEFluidKey;
 import appeng.api.stacks.AEItemKey;
 import appeng.api.stacks.GenericStack;
 import dev.emi.emi.api.stack.EmiStack;
@@ -17,8 +16,8 @@ public class EmiItemStackConverter implements EmiStackConverter {
 
     @Override
     public @Nullable EmiStack toEmiStack(GenericStack stack) {
-        if (stack.what() instanceof AEFluidKey fluidKey) {
-            return EmiStack.of(fluidKey.getFluid(), fluidKey.copyTag(), stack.amount());
+        if (stack.what() instanceof AEItemKey itemKey) {
+            return EmiStack.of(itemKey.getItem(), stack.amount());
         }
 
         return null;
