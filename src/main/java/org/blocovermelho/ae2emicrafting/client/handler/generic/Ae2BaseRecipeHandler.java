@@ -17,6 +17,7 @@ import net.minecraft.client.gui.tooltip.TooltipComponent;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.text.Text;
 import net.minecraft.util.collection.DefaultedList;
+import org.blocovermelho.ae2emicrafting.client.Ae2EmiMod;
 import org.blocovermelho.ae2emicrafting.client.helper.InventoryUtils;
 import org.blocovermelho.ae2emicrafting.client.helper.rendering.Result;
 import org.jetbrains.annotations.Nullable;
@@ -34,6 +35,11 @@ public abstract class Ae2BaseRecipeHandler<T extends AEBaseMenu> implements EmiR
 
     @Override
     public EmiPlayerInventory getInventory(HandledScreen<T> screen) {
+
+        if (!Ae2EmiMod.cfg.bomsync) {
+            return new EmiPlayerInventory(List.of());
+        }
+
         T handler = screen.getScreenHandler();
         if (handler instanceof MEStorageMenu menu) {
             DefaultedList<EmiStack> allStack = DefaultedList.of();

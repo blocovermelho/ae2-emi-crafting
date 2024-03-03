@@ -16,6 +16,12 @@
   "entrypoints": {
     "emi" : [
       "org.blocovermelho.ae2emicrafting.client.AE2EmiCraftingPlugin"
+    ],
+    "modmenu": [
+      "org.blocovermelho.ae2emicrafting.client.config.ModMenuIntegration"
+    ],
+    "client": [
+      "org.blocovermelho.ae2emicrafting.client.Ae2EmiMod"
     ]
   },
   "depends": {
