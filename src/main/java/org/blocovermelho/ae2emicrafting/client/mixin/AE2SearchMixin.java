@@ -33,4 +33,10 @@ public class AE2SearchMixin {
     private static void ae2emicrafting$fix_text_sync_to(CallbackInfoReturnable<Boolean> cir){
         cir.setReturnValue(EmiApi.isSearchFocused());
     }
+
+    @Inject(method = "clearExternalSearchText", at  = @At("HEAD"), cancellable = true, remap = false)
+    private static void ae2emicrafting$fix_clean_text(CallbackInfo ci) {
+        EmiApi.setSearchText("");
+        ci.cancel();
+    }
 }
