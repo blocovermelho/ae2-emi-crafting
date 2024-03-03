@@ -5,6 +5,7 @@ import appeng.core.AEConfig;
 import appeng.core.definitions.AEBlocks;
 import appeng.core.definitions.AEItems;
 import appeng.core.definitions.AEParts;
+import appeng.menu.me.common.MEStorageMenu;
 import appeng.menu.me.items.CraftingTermMenu;
 import appeng.menu.me.items.PatternEncodingTermMenu;
 import appeng.recipes.entropy.EntropyRecipe;
@@ -16,6 +17,7 @@ import dev.emi.emi.api.EmiRegistry;
 import dev.emi.emi.api.recipe.VanillaEmiRecipeCategories;
 import dev.emi.emi.api.stack.EmiStack;
 import org.blocovermelho.ae2emicrafting.client.handler.Ae2CraftingHandler;
+import org.blocovermelho.ae2emicrafting.client.handler.Ae2MeTerminalHandler;
 import org.blocovermelho.ae2emicrafting.client.handler.Ae2PatternTerminalHandler;
 import org.blocovermelho.ae2emicrafting.client.handler.generic.Ae2BaseScreenExclusionZones;
 import org.blocovermelho.ae2emicrafting.client.handler.generic.Ae2BaseDragHandler;
@@ -40,6 +42,9 @@ public class Ae2EmiPlugin implements EmiPlugin {
 
         registry.addRecipeHandler(CraftingTermMenu.TYPE, new Ae2CraftingHandler<>(CraftingTermMenu.class));
         registry.addRecipeHandler(PatternEncodingTermMenu.TYPE, new Ae2PatternTerminalHandler<>(PatternEncodingTermMenu.class));
+        // Workaround: Seeing Items from ME Terminal on Synthetic Favourites without using the GenericStackProvider.
+        // Reasoning: For whatever reason that is broken on fluids, even though it shouldn't.
+        registry.addRecipeHandler(MEStorageMenu.TYPE, new Ae2MeTerminalHandler<>(MEStorageMenu.class));
 
         registry.addCategory(Ae2CategoryHolder.WORLD_INTERACTION);
         Ae2CategoryHolder.addAll(registry, TransformRecipe.TYPE, Ae2TransformRecipe::new);
