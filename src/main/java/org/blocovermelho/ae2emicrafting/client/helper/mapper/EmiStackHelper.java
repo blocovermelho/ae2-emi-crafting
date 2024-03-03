@@ -4,6 +4,7 @@ import appeng.api.stacks.GenericStack;
 import dev.emi.emi.api.recipe.EmiRecipe;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
+import org.blocovermelho.ae2emicrafting.client.AE2EmiCraftingPlugin;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collections;
@@ -22,6 +23,14 @@ public final class EmiStackHelper {
             }
         }
 
+        if(emiStack != null) {
+            AE2EmiCraftingPlugin.LOGGER.error("================ Missing Converter Error =================");
+            AE2EmiCraftingPlugin.LOGGER.error("Couldn't find a  GenericStack converter for EmiStack: " + emiStack.getItemStack());
+            AE2EmiCraftingPlugin.LOGGER.error("Please report this to the developers");
+            AE2EmiCraftingPlugin.LOGGER.error("https://github.com/blocovermelho/ae2-emi-crafting");
+            AE2EmiCraftingPlugin.LOGGER.error("================ Missing Converter Error =================");
+        }
+
         return null;
     }
 
@@ -32,6 +41,15 @@ public final class EmiStackHelper {
             if (emiStack != null) {
                 return emiStack;
             }
+        }
+
+        if(stack.what() != null) {
+            AE2EmiCraftingPlugin.LOGGER.error("================ Missing Converter Error =================");
+            AE2EmiCraftingPlugin.LOGGER.error(":k AeKey is " + stack.what().getClass());
+            AE2EmiCraftingPlugin.LOGGER.error("Couldn't find a EmiStack converter for AeKey: " + stack.what().toTagGeneric().asString());
+            AE2EmiCraftingPlugin.LOGGER.error("Please report this to the developers");
+            AE2EmiCraftingPlugin.LOGGER.error("https://github.com/blocovermelho/ae2-emi-crafting");
+            AE2EmiCraftingPlugin.LOGGER.error("================ Missing Converter Error =================");
         }
 
         return null;

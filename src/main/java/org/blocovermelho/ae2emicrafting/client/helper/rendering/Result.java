@@ -158,6 +158,11 @@ public sealed abstract class Result {
                            DrawContext guiGraphics) {
             renderMissingAndCraftableSlotOverlays(widgets, guiGraphics, missingSlots, Set.of());
         }
+
+        @Override
+        public List<Text> getTooltip(EmiRecipe emiRecipe, EmiCraftContext<?> context) {
+            return List.of(getMessage());
+        }
     }
 
     public static NotApplicable createNotApplicable() {
