@@ -8,6 +8,7 @@ import appeng.core.definitions.AEParts;
 import appeng.menu.me.common.MEStorageMenu;
 import appeng.menu.me.items.CraftingTermMenu;
 import appeng.menu.me.items.PatternEncodingTermMenu;
+import appeng.menu.me.items.WirelessCraftingTermMenu;
 import appeng.recipes.entropy.EntropyRecipe;
 import appeng.recipes.handlers.ChargerRecipe;
 import appeng.recipes.handlers.InscriberRecipe;
@@ -41,6 +42,7 @@ public class Ae2EmiPlugin implements EmiPlugin {
         registry.addWorkstation(VanillaEmiRecipeCategories.CRAFTING, EmiStack.of(AEItems.WIRELESS_CRAFTING_TERMINAL.stack()));
 
         registry.addRecipeHandler(CraftingTermMenu.TYPE, new Ae2CraftingHandler<>(CraftingTermMenu.class));
+        registry.addRecipeHandler(WirelessCraftingTermMenu.TYPE, new Ae2CraftingHandler<>(WirelessCraftingTermMenu.class));
         registry.addRecipeHandler(PatternEncodingTermMenu.TYPE, new Ae2PatternTerminalHandler<>(PatternEncodingTermMenu.class));
         // Workaround: Seeing Items from ME Terminal on Synthetic Favourites without using the GenericStackProvider.
         // Reasoning: For whatever reason that is broken on fluids, even though it shouldn't.
