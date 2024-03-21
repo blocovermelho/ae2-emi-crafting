@@ -11,9 +11,9 @@ import dev.emi.emi.api.recipe.handler.EmiRecipeHandler;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.Widget;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.gui.tooltip.TooltipComponent;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.text.Text;
 import net.minecraft.util.collection.DefaultedList;
@@ -85,9 +85,11 @@ public abstract class Ae2BaseRecipeHandler<T extends AEBaseMenu> implements EmiR
         T menu = containerClass.cast(context.getScreenHandler());
 
         var result = transferRecipe(menu, recipe, emiRecipe, doTransfer);
+
         if (result instanceof Result.Success && doTransfer) {
             MinecraftClient.getInstance().setScreen(context.getScreen());
         }
+
         return result;
     }
 
@@ -99,6 +101,13 @@ public abstract class Ae2BaseRecipeHandler<T extends AEBaseMenu> implements EmiR
 
     @Override
     public boolean canCraft(EmiRecipe recipe, EmiCraftContext<T> context) {
+        //FIXME: Doesn't fill the grid when clicking on сraft rcm with shift key pressed (what?).
+//        if (context.getType() == EmiCraftContext.Type.FILL_BUTTON) {
+//            return transferRecipe(recipe, context, false).canCraft();
+//        }
+//
+//        return context.getInventory().canCraft(recipe);
+
         return transferRecipe(recipe, context, false).canCraft();
     }
 
@@ -106,7 +115,6 @@ public abstract class Ae2BaseRecipeHandler<T extends AEBaseMenu> implements EmiR
     public boolean craft(EmiRecipe recipe, EmiCraftContext<T> context) {
         return transferRecipe(recipe, context, true).canCraft();
     }
-
 
     @Override
     public List<TooltipComponent> getTooltip(EmiRecipe recipe, EmiCraftContext<T> context) {
@@ -122,7 +130,7 @@ public abstract class Ae2BaseRecipeHandler<T extends AEBaseMenu> implements EmiR
     }
 
     @Override
-    public void render(EmiRecipe recipe, EmiCraftContext<T> context, List<Widget> widgets, DrawContext draw) {
-        transferRecipe(recipe, context, false).render(recipe, context, widgets, draw);
+    public void render(EmiRecipe recipe, EmiCraftContext<T> context, List<Widget> widgets, MatrixStack matrixStack) {
+        transferRecipe(recipe, context, false).render(recipe, context, widgets, matrixStack);
     }
 }

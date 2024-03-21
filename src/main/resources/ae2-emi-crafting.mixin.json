@@ -5,7 +5,6 @@
   "compatibilityLevel": "JAVA_17",
   "mixins": [],
   "client": [
-    "ExMINoopMixin",
     "AE2SearchMixin",
     "AE2TerminalScreenMixin"
   ],

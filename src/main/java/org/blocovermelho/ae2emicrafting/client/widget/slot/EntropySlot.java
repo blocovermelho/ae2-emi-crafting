@@ -1,13 +1,14 @@
 package org.blocovermelho.ae2emicrafting.client.widget.slot;
 
-import appeng.api.client.AEKeyRendering;
+import appeng.api.client.AEStackRendering;
 import appeng.api.stacks.AEFluidKey;
 import appeng.core.localization.ItemModText;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.SlotWidget;
-import net.minecraft.client.gui.DrawContext;
+import dev.emi.emi.runtime.EmiDrawContext;
 import net.minecraft.client.gui.tooltip.TooltipComponent;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -32,7 +33,7 @@ public class EntropySlot extends SlotWidget {
             // We use our own tooltip composition here since it's hard to customize client tooltip components
             tooltip.clear();
 
-            var fluidTooltip = AEKeyRendering.getTooltip(AEFluidKey.of(fluid));
+            var fluidTooltip = AEStackRendering.getTooltip(AEFluidKey.of(fluid));
             // Prepend "Flowing" to the first line if we're dealing with a non-source block
             if (!fluidTooltip.isEmpty() && flowing) {
                 fluidTooltip.set(
@@ -56,11 +57,13 @@ public class EntropySlot extends SlotWidget {
     }
 
     @Override
-    public void drawOverlay(DrawContext draw, int mouseX, int mouseY, float delta) {
+    public void drawOverlay(MatrixStack matrixStack, int mouseX, int mouseY, float delta) {
         if (consumed) {
             var bounds = getBounds();
-            draw.fill(bounds.x(), bounds.y(), bounds.x() + bounds.width(), bounds.y() + bounds.height(), 0xAAFA0000);
+            EmiDrawContext drawContext = EmiDrawContext.wrap(matrixStack);
+            drawContext.fill(bounds.x(), bounds.y(), bounds.x() + bounds.width(), bounds.y() + bounds.height(), 0xAAFA0000);
         }
-        super.drawOverlay(draw, mouseX, mouseY, delta);
+
+        super.drawOverlay(matrixStack, mouseX, mouseY, delta);
     }
 }

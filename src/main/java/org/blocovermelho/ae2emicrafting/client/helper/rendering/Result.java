@@ -9,7 +9,8 @@ import dev.emi.emi.api.recipe.handler.EmiCraftContext;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.widget.SlotWidget;
 import dev.emi.emi.api.widget.Widget;
-import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.gui.DrawableHelper;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 import org.blocovermelho.ae2emicrafting.client.helper.mapper.EmiStackHelper;
 import org.jetbrains.annotations.Nullable;
@@ -32,7 +33,7 @@ public sealed abstract class Result {
     public abstract boolean canCraft();
 
     public void render(EmiRecipe recipe, EmiCraftContext<? extends AEBaseMenu> context, List<Widget> widgets,
-                       DrawContext draw) {
+                       MatrixStack matrices) {
     }
 
     public static final class Success extends Result {
@@ -65,8 +66,8 @@ public sealed abstract class Result {
 
         @Override
         public void render(EmiRecipe recipe, EmiCraftContext<? extends AEBaseMenu> context, List<Widget> widgets,
-                           DrawContext guiGraphics) {
-            renderMissingAndCraftableSlotOverlays(widgets, guiGraphics, missingSlots.missingSlots(),
+                           MatrixStack matrixStack) {
+            renderMissingAndCraftableSlotOverlays(widgets, matrixStack, missingSlots.missingSlots(),
                     missingSlots.craftableSlots());
         }
     }
@@ -101,20 +102,24 @@ public sealed abstract class Result {
 
         @Override
         public void render(EmiRecipe recipe, EmiCraftContext<? extends AEBaseMenu> context, List<Widget> widgets,
-                           DrawContext guiGraphics) {
+                           MatrixStack matrixStack) {
             for (var widget : widgets) {
                 if (widget instanceof SlotWidget slot && isInputSlot(slot)) {
                     if (isCraftable(craftableKeys, slot.getStack())) {
-                        var poseStack = guiGraphics.getMatrices();
-                        poseStack.push();
-                        poseStack.translate(0, 0, 400);
+                        matrixStack.push();
+                        matrixStack.translate(0, 0, 400);
+
                         var bounds = getInnerBounds(slot);
-                        guiGraphics.fill(bounds.x(),
+
+                        DrawableHelper.fill(
+                                matrixStack,
+                                bounds.x(),
                                 bounds.y(),
                                 bounds.right(),
                                 bounds.bottom(),
                                 BLUE_SLOT_HIGHLIGHT_COLOR);
-                        poseStack.pop();
+
+                        matrixStack.pop();
                     }
                 }
             }
@@ -155,8 +160,8 @@ public sealed abstract class Result {
 
         @Override
         public void render(EmiRecipe recipe, EmiCraftContext<? extends AEBaseMenu> context, List<Widget> widgets,
-                           DrawContext guiGraphics) {
-            renderMissingAndCraftableSlotOverlays(widgets, guiGraphics, missingSlots, Set.of());
+                           MatrixStack matrixStack) {
+            renderMissingAndCraftableSlotOverlays(widgets, matrixStack, missingSlots, Set.of());
         }
 
         @Override

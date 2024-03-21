@@ -30,7 +30,7 @@ public class Ae2TransformRecipe extends BasicEmiRecipe {
                 .map(EmiIngredient::of)
                 .toList();
 
-        this.outputs = List.of(EmiStack.of(source.getResultItem()));
+        this.outputs = List.of(EmiStack.of(source.getOutput()));
 
         this.width = 150;
         this.height = 72;
@@ -84,7 +84,7 @@ public class Ae2TransformRecipe extends BasicEmiRecipe {
 
         // Fifth column is the result
         final int col5 = arrow2.getBounds().right() + 10;
-        widgets.addSlot(EmiStack.of(recipe.getResultItem()), col5 - 1, yOffset - 1).recipeContext(this);
+        widgets.addSlot(EmiStack.of(recipe.getOutput()), col5 - 1, yOffset - 1).recipeContext(this);
 
         MutableText circumstanceText;
         if (recipe.circumstance.isExplosion()) {

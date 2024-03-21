@@ -9,6 +9,7 @@ import org.blocovermelho.ae2emicrafting.client.config.MainConfig;
 
 public class Ae2EmiMod implements ClientModInitializer {
     public static MainConfig cfg;
+
     @Override
     public void onInitializeClient() {
         AutoConfig.register(MainConfig.class, GsonConfigSerializer::new);

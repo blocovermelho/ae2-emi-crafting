@@ -6,15 +6,11 @@ import appeng.core.definitions.AEBlocks;
 import appeng.core.localization.ItemModText;
 import appeng.recipes.handlers.ChargerRecipe;
 import dev.emi.emi.api.recipe.BasicEmiRecipe;
-import dev.emi.emi.api.recipe.EmiRecipeCategory;
 import dev.emi.emi.api.render.EmiTexture;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.WidgetHolder;
-import net.minecraft.text.MutableText;
 import org.blocovermelho.ae2emicrafting.client.recipes.category.Ae2CategoryHolder;
-
-import java.util.List;
 
 public class Ae2ChargerRecipe extends BasicEmiRecipe {
     private final EmiIngredient ingredient;
@@ -22,7 +18,7 @@ public class Ae2ChargerRecipe extends BasicEmiRecipe {
     public Ae2ChargerRecipe(ChargerRecipe source) {
         super(Ae2CategoryHolder.CHARGER, source.getId(), 130,50);
         this.ingredient = EmiIngredient.of(source.getIngredient());
-        this.result = EmiStack.of(source.getResultItem());
+        this.result = EmiStack.of(source.getOutput());
 
         this.inputs.add(ingredient);
         this.outputs.add(result);

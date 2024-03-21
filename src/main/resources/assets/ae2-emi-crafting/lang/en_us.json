@@ -10,7 +10,5 @@
   "text.autoconfig.ae2-emi-crafting.category.emi": "EMI",
   "text.autoconfig.ae2-emi-crafting.category.integration": "Mod Integration",
   "text.autoconfig.ae2-emi-crafting.option.bomsync": "Bill of Materials Sync",
-  "text.autoconfig.ae2-emi-crafting.option.bomsync.@Tooltip": "Allows for EMI to read the contents of the ME system",
-  "text.autoconfig.ae2-emi-crafting.option.exmi": "Extra Mod Integrations",
-  "text.autoconfig.ae2-emi-crafting.option.exmi.@Tooltip": "Removes ExMI AE2 recipes from being registered"
+  "text.autoconfig.ae2-emi-crafting.option.bomsync.@Tooltip": "Allows for EMI to read the contents of the ME system"
 }

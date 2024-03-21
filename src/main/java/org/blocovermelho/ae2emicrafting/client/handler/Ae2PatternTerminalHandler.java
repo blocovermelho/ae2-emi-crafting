@@ -68,12 +68,14 @@ public class Ae2PatternTerminalHandler<T extends PatternEncodingTermMenu> extend
      */
     private List<List<GenericStack>> getGuiIngredientsForCrafting(EmiRecipe emiRecipe) {
         var result = new ArrayList<List<GenericStack>>(CRAFTING_GRID_WIDTH * CRAFTING_GRID_HEIGHT);
+
         for (int i = 0; i < CRAFTING_GRID_WIDTH * CRAFTING_GRID_HEIGHT; i++) {
             var stacks = new ArrayList<GenericStack>();
 
             if (i < emiRecipe.getInputs().size()) {
                 for (var emiStack : emiRecipe.getInputs().get(i).getEmiStacks()) {
                     var genericStack = EmiStackHelper.toGenericStack(emiStack);
+
                     if (genericStack != null && genericStack.what() instanceof AEItemKey) {
                         stacks.add(genericStack);
                     }
@@ -82,6 +84,7 @@ public class Ae2PatternTerminalHandler<T extends PatternEncodingTermMenu> extend
 
             result.add(stacks);
         }
+
         return result;
     }
 }

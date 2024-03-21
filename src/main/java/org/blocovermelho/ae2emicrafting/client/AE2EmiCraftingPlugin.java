@@ -10,7 +10,6 @@ public class AE2EmiCraftingPlugin implements EmiPlugin {
     public static final String MOD_ID = "ae2-emi-crafting";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
-
     @Override
     public void register(EmiRegistry registry) {
         FabricLoader loader = FabricLoader.getInstance();

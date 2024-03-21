@@ -10,10 +10,10 @@ public final class EmiStackConverters {
 
     private EmiStackConverters() {}
 
-    public static synchronized boolean register(EmiStackConverter converter) {
+    public static synchronized void register(EmiStackConverter converter) {
         for (var existingConverter : converters) {
             if (existingConverter.getKeyType() == converter.getKeyType()) {
-                return false;
+                return;
             }
         }
 
@@ -22,7 +22,6 @@ public final class EmiStackConverters {
                 .add(converter)
                 .build();
 
-        return true;
     }
 
     public static synchronized List<EmiStackConverter> getConverters() {

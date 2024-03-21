@@ -3,7 +3,8 @@ package org.blocovermelho.ae2emicrafting.client.helper.rendering;
 import dev.emi.emi.api.widget.Bounds;
 import dev.emi.emi.api.widget.SlotWidget;
 import dev.emi.emi.api.widget.Widget;
-import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.gui.DrawableHelper;
+import net.minecraft.client.util.math.MatrixStack;
 
 import java.util.List;
 import java.util.Set;
@@ -12,7 +13,7 @@ import static appeng.integration.modules.jeirei.TransferHelper.BLUE_SLOT_HIGHLIG
 import static appeng.integration.modules.jeirei.TransferHelper.RED_SLOT_HIGHLIGHT_COLOR;
 
 public class Rendering {
-    public static void renderMissingAndCraftableSlotOverlays(List<Widget> widgets, DrawContext guiGraphics,
+    public static void renderMissingAndCraftableSlotOverlays(List<Widget> widgets, MatrixStack matrixStack,
                                                               Set<Integer> missingSlots, Set<Integer> craftableSlots) {
         int i = 0;
         for (var widget : widgets) {
@@ -21,13 +22,15 @@ public class Rendering {
                 boolean craftable = craftableSlots.contains(i);
                 i++;
                 if (missing || craftable) {
-                    var poseStack = guiGraphics.getMatrices();
-                    poseStack.push();
-                    poseStack.translate(0, 0, 400);
+                    matrixStack.push();
+                    matrixStack.translate(0, 0, 400);
+
                     var innerBounds = getInnerBounds(slot);
-                    guiGraphics.fill(innerBounds.x(), innerBounds.y(), innerBounds.right(),
+
+                    DrawableHelper.fill(matrixStack,innerBounds.x(), innerBounds.y(), innerBounds.right(),
                             innerBounds.bottom(), missing ? RED_SLOT_HIGHLIGHT_COLOR : BLUE_SLOT_HIGHLIGHT_COLOR);
-                    poseStack.pop();
+
+                    matrixStack.pop();
                 }
             }
         }

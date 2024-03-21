@@ -11,13 +11,16 @@ public class Ae2BaseStackProvider implements EmiStackProvider<Screen> {
     public EmiStackInteraction getStackAt(Screen screen, int x, int y) {
         if (screen instanceof AEBaseScreen<?> aeScreen) {
             var stack = aeScreen.getStackUnderMouse(x, y);
+
             if (stack != null) {
-                var emiStack = EmiStackHelper.toEmiStack(stack.stack());
+                var emiStack = EmiStackHelper.toEmiStack(stack);
+
                 if (emiStack != null) {
                     return new EmiStackInteraction(emiStack);
                 }
             }
         }
+
         return EmiStackInteraction.EMPTY;
     }
 }

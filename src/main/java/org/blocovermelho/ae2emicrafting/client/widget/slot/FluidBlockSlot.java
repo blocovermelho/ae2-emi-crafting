@@ -4,7 +4,7 @@ import appeng.integration.modules.jeirei.FluidBlockRendering;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.widget.Bounds;
 import dev.emi.emi.api.widget.SlotWidget;
-import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 
@@ -22,9 +22,9 @@ public class FluidBlockSlot extends SlotWidget {
     }
 
     @Override
-    public void drawStack(DrawContext draw, int mouseX, int mouseY, float delta) {
+    public void drawStack(MatrixStack matrixStack, int mouseX, int mouseY, float delta) {
         Bounds bounds = getBounds();
-        FluidBlockRendering.render(draw, getCurrentFluid(), bounds.x(), bounds.y(), bounds.width(), bounds.height());
+        FluidBlockRendering.render(matrixStack, getCurrentFluid(), bounds.x(), bounds.y(), bounds.width(), bounds.height());
     }
 
     private Fluid getCurrentFluid() {

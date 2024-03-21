@@ -37,11 +37,11 @@ public class RecipeUtils {
             width = 3;
         }
 
-        HashMap<Integer, Ingredient> result = new HashMap(ingredients.size());
+        HashMap<Integer, Ingredient> result = new HashMap<>(ingredients.size());
 
         for(int i = 0; i < ingredients.size(); ++i) {
             int guiSlot = i / width * 3 + i % width;
-            Ingredient ingredient = (Ingredient)ingredients.get(i);
+            Ingredient ingredient = ingredients.get(i);
             if (!ingredient.isEmpty()) {
                 result.put(guiSlot, ingredient);
             }

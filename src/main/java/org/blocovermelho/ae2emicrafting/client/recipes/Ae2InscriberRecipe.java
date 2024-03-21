@@ -1,11 +1,9 @@
 package org.blocovermelho.ae2emicrafting.client.recipes;
 
 import appeng.core.AppEng;
-import appeng.core.definitions.AEItems;
 import appeng.recipes.handlers.InscriberProcessType;
 import appeng.recipes.handlers.InscriberRecipe;
 import dev.emi.emi.api.recipe.BasicEmiRecipe;
-import dev.emi.emi.api.recipe.EmiRecipeCategory;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.WidgetHolder;
@@ -35,7 +33,7 @@ public class Ae2InscriberRecipe extends BasicEmiRecipe {
         }
 
         this.inputs = List.of(top, middle, bottom);
-        this.outputs = List.of(EmiStack.of(source.getResultItem()));
+        this.outputs = List.of(EmiStack.of(source.getOutput()));
     }
     @Override
     public void addWidgets(WidgetHolder widgets) {

@@ -6,7 +6,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.ShapedRecipe;
-import net.minecraft.recipe.book.CraftingRecipeCategory;
 import net.minecraft.util.collection.DefaultedList;
 
 import static org.blocovermelho.ae2emicrafting.client.handler.generic.Ae2BaseRecipeHandler.CRAFTING_GRID_HEIGHT;
@@ -24,6 +23,6 @@ public class RecipeGenerator {
             ingredients.set(i, ingredient);
         }
 
-        return new ShapedRecipe(display.getId(), "", CraftingRecipeCategory.MISC, CRAFTING_GRID_WIDTH, CRAFTING_GRID_HEIGHT,ingredients, ItemStack.EMPTY);
+        return new ShapedRecipe(display.getId(), "", CRAFTING_GRID_WIDTH, CRAFTING_GRID_HEIGHT,ingredients, ItemStack.EMPTY);
     }
 }

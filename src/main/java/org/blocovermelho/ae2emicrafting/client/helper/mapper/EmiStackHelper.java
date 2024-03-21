@@ -18,14 +18,15 @@ public final class EmiStackHelper {
     public static GenericStack toGenericStack(EmiStack emiStack) {
         for (var converter : EmiStackConverters.getConverters()) {
             var stack = converter.toGenericStack(emiStack);
+
             if (stack != null) {
                 return stack;
             }
         }
 
-        if(emiStack != null) {
+        if (emiStack != null) {
             AE2EmiCraftingPlugin.LOGGER.error("================ Missing Converter Error =================");
-            AE2EmiCraftingPlugin.LOGGER.error("Couldn't find a  GenericStack converter for EmiStack: " + emiStack.getItemStack());
+            AE2EmiCraftingPlugin.LOGGER.error("Couldn't find a GenericStack converter for EmiStack: " + emiStack.getItemStack());
             AE2EmiCraftingPlugin.LOGGER.error("Please report this to the developers");
             AE2EmiCraftingPlugin.LOGGER.error("https://github.com/blocovermelho/ae2-emi-crafting");
             AE2EmiCraftingPlugin.LOGGER.error("================ Missing Converter Error =================");

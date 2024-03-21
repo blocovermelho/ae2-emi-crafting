@@ -1,0 +1,14 @@
+{
+  "ae2-emi-crafting.category_condenser": "Конденсатор материи",
+  "ae2-emi-crafting.category_inscriber": "Вырезатель",
+  "ae2-emi-crafting.category_attunement": "Присоединение туннеля P2P",
+  "ae2-emi-crafting.category_transform": "Преобразование в мире",
+  "ae2-emi-crafting.category_charger": "Зарядник",
+  "ae2-emi-crafting.category_entropy_manipulator": "Энтропийный манипулятор",
+  "ae2-emi-crafting.error.crafting.storage_terminal": "Невозможно создать используя МЭ Терминал Хранения",
+  "text.autoconfig.ae2-emi-crafting.title": "AE2 EMI Crafting Integration",
+  "text.autoconfig.ae2-emi-crafting.category.emi": "EMI",
+  "text.autoconfig.ae2-emi-crafting.category.integration": "Интеграция",
+  "text.autoconfig.ae2-emi-crafting.option.bomsync": "Синхронизация спецификации материалов",
+  "text.autoconfig.ae2-emi-crafting.option.bomsync.@Tooltip": "Позволяет EMI считывать содержимое МЭ системы"
+}
