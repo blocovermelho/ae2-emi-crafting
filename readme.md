@@ -16,8 +16,6 @@ All EMI functionality you'd expect from a vanilla crafting table also should wor
 - Bringing items from all available inventories, including your hotbar
 - Support for tags, prioritizing the item you have the most of on the AE2 system
 
-This mod has integrations for both AE2 and AE2WTLib.
-
 ## Changelog
 - [v:1.2.1] Support for Fluid Crafting
 - [v:1.2.1] Support for Dragging Items from EMI
@@ -26,6 +24,12 @@ This mod has integrations for both AE2 and AE2WTLib.
 - [v:1.3.0] Syncing AE2 and EMI search
 - [v:1.3.0] Requesting existing crafting patterns with Ctrl + Click
 - [v:1.3.0] Full Applied Energistics 2 Recipes Support
+
+## Cross-mod Integration
+**[v:1.3.0]** [Extra Mod Integrations](https://modrinth.com/mod/extra-mod-integrations)
+The ExMI AE2 plugin gets automatically disabled if found which removes the duplicate recipes from applied energistics.
+
+This mod has integrations for both AE2 and AE2WTLib.
 
 ## Support Matrix
 
