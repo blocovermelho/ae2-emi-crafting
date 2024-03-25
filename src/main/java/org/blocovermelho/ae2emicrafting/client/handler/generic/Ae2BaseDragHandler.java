@@ -8,7 +8,6 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.math.MatrixStack;
 import org.blocovermelho.ae2emicrafting.client.helper.DropTargets;
 import org.blocovermelho.ae2emicrafting.client.helper.mapper.EmiStackHelper;
-import dev.emi.emi.runtime.EmiDrawContext;
 
 import java.util.Objects;
 import java.util.stream.Collectors;

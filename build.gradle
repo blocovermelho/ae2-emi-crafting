@@ -37,7 +37,7 @@ dependencies {
     modImplementation("appeng:appliedenergistics2-fabric:${project.ae2_version}")
 
     modCompileOnly "dev.emi:emi-fabric:${project.emi_version}:api"
-    modImplementation "dev.emi:emi-fabric:${project.emi_version}"
+    modLocalRuntime "dev.emi:emi-fabric:${project.emi_version}"
 
     // AE2WTLib
     modImplementation("maven.modrinth:pNabrMMw:${project.ae2wtlib_version}-fabric")

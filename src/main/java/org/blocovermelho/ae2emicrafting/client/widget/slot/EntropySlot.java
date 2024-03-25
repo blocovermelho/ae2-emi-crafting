@@ -6,12 +6,13 @@ import appeng.core.localization.ItemModText;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.SlotWidget;
-import dev.emi.emi.runtime.EmiDrawContext;
+import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.tooltip.TooltipComponent;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -57,11 +58,10 @@ public class EntropySlot extends SlotWidget {
     }
 
     @Override
-    public void drawOverlay(MatrixStack matrixStack, int mouseX, int mouseY, float delta) {
+    public void drawOverlay(@NotNull MatrixStack matrixStack, int mouseX, int mouseY, float delta) {
         if (consumed) {
             var bounds = getBounds();
-            EmiDrawContext drawContext = EmiDrawContext.wrap(matrixStack);
-            drawContext.fill(bounds.x(), bounds.y(), bounds.x() + bounds.width(), bounds.y() + bounds.height(), 0xAAFA0000);
+            DrawableHelper.fill(matrixStack, bounds.x(), bounds.y(), bounds.x() + bounds.width(), bounds.y() + bounds.height(), 0xAAFA0000);
         }
 
         super.drawOverlay(matrixStack, mouseX, mouseY, delta);
