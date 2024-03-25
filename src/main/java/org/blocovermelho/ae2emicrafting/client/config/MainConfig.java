@@ -14,4 +14,8 @@ public class MainConfig implements ConfigData {
     @ConfigEntry.Gui.RequiresRestart
     public boolean exmi = true;
 
+
+    @ConfigEntry.Category("experiments")
+    @ConfigEntry.Gui.Tooltip(count = 2)
+    public boolean alwayssync = false;
 }
