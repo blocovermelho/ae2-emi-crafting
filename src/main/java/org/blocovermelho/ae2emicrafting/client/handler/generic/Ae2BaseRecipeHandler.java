@@ -99,7 +99,11 @@ public abstract class Ae2BaseRecipeHandler<T extends AEBaseMenu> implements EmiR
 
     @Override
     public boolean canCraft(EmiRecipe recipe, EmiCraftContext<T> context) {
-        return transferRecipe(recipe, context, false).canCraft();
+        if (context.getType() == EmiCraftContext.Type.FILL_BUTTON) {
+            return transferRecipe(recipe, context, false).canCraft();
+        } else {
+            return context.getInventory().canCraft(recipe);
+        }
     }
 
     @Override
@@ -123,6 +127,10 @@ public abstract class Ae2BaseRecipeHandler<T extends AEBaseMenu> implements EmiR
 
     @Override
     public void render(EmiRecipe recipe, EmiCraftContext<T> context, List<Widget> widgets, DrawContext draw) {
-        transferRecipe(recipe, context, false).render(recipe, context, widgets, draw);
+        if (context.getType() == EmiCraftContext.Type.FILL_BUTTON) {
+            transferRecipe(recipe, context, false).render(recipe, context, widgets, draw);
+        } else {
+            EmiRecipeHandler.super.render(recipe, context,  widgets,  draw);
+        }
     }
 }
