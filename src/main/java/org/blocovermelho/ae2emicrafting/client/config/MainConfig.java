@@ -9,4 +9,8 @@ public class MainConfig implements ConfigData {
     @ConfigEntry.Category("emi")
     @ConfigEntry.Gui.Tooltip()
     public boolean bomsync = false;
+
+    @ConfigEntry.Category("experiments")
+    @ConfigEntry.Gui.Tooltip(count = 2)
+    public boolean alwayssync = false;
 }

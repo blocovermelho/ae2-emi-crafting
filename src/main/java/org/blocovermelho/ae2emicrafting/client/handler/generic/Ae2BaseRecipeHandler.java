@@ -99,7 +99,7 @@ public abstract class Ae2BaseRecipeHandler<T extends AEBaseMenu> implements EmiR
 
     @Override
     public boolean canCraft(EmiRecipe recipe, EmiCraftContext<T> context) {
-        if (context.getType() == EmiCraftContext.Type.FILL_BUTTON) {
+        if (Ae2EmiMod.cfg.alwayssync || context.getType() == EmiCraftContext.Type.FILL_BUTTON) {
             return transferRecipe(recipe, context, false).canCraft();
         } else {
             return context.getInventory().canCraft(recipe);
