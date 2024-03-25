@@ -85,11 +85,9 @@ public abstract class Ae2BaseRecipeHandler<T extends AEBaseMenu> implements EmiR
         T menu = containerClass.cast(context.getScreenHandler());
 
         var result = transferRecipe(menu, recipe, emiRecipe, doTransfer);
-
         if (result instanceof Result.Success && doTransfer) {
             MinecraftClient.getInstance().setScreen(context.getScreen());
         }
-
         return result;
     }
 
@@ -101,13 +99,6 @@ public abstract class Ae2BaseRecipeHandler<T extends AEBaseMenu> implements EmiR
 
     @Override
     public boolean canCraft(EmiRecipe recipe, EmiCraftContext<T> context) {
-        //FIXME: Doesn't fill the grid when clicking on сraft rcm with shift key pressed (what?).
-//        if (context.getType() == EmiCraftContext.Type.FILL_BUTTON) {
-//            return transferRecipe(recipe, context, false).canCraft();
-//        }
-//
-//        return context.getInventory().canCraft(recipe);
-
         return transferRecipe(recipe, context, false).canCraft();
     }
 
@@ -115,6 +106,7 @@ public abstract class Ae2BaseRecipeHandler<T extends AEBaseMenu> implements EmiR
     public boolean craft(EmiRecipe recipe, EmiCraftContext<T> context) {
         return transferRecipe(recipe, context, true).canCraft();
     }
+
 
     @Override
     public List<TooltipComponent> getTooltip(EmiRecipe recipe, EmiCraftContext<T> context) {
