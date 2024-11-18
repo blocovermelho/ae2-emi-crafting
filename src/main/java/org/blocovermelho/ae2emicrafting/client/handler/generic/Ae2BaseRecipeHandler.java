@@ -1,5 +1,15 @@
 package org.blocovermelho.ae2emicrafting.client.handler.generic;
 
+import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+
+import org.blocovermelho.ae2emicrafting.client.Ae2EmiMod;
+import org.blocovermelho.ae2emicrafting.client.helper.InventoryUtils;
+import org.blocovermelho.ae2emicrafting.client.helper.rendering.Result;
+import org.jetbrains.annotations.Nullable;
+
 import appeng.menu.AEBaseMenu;
 import appeng.menu.SlotSemantics;
 import appeng.menu.me.common.MEStorageMenu;
@@ -17,18 +27,16 @@ import net.minecraft.client.gui.tooltip.TooltipComponent;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.text.Text;
 import net.minecraft.util.collection.DefaultedList;
-import org.blocovermelho.ae2emicrafting.client.Ae2EmiMod;
-import org.blocovermelho.ae2emicrafting.client.helper.InventoryUtils;
-import org.blocovermelho.ae2emicrafting.client.helper.rendering.Result;
-import org.jetbrains.annotations.Nullable;
-
-import java.util.List;
 
 public abstract class Ae2BaseRecipeHandler<T extends AEBaseMenu> implements EmiRecipeHandler<T> {
+
     public static final int CRAFTING_GRID_WIDTH = 3;
     public static final int CRAFTING_GRID_HEIGHT = 3;
 
     private final Class<T> containerClass;
+    // Create a thread pool with a single thread for async tasks
+    private static final ExecutorService executorService = Executors.newSingleThreadExecutor();
+
     protected Ae2BaseRecipeHandler(Class<T> containerClass) {
         this.containerClass = containerClass;
     }
@@ -42,32 +50,44 @@ public abstract class Ae2BaseRecipeHandler<T extends AEBaseMenu> implements EmiR
 
         T handler = screen.getScreenHandler();
         if (handler instanceof MEStorageMenu menu) {
-            DefaultedList<EmiStack> allStack = DefaultedList.of();
+            // Asynchronously get the inventory stacks
+            Future<EmiPlayerInventory> futureInventory = executorService.submit(() -> {
+                DefaultedList<EmiStack> allStack = DefaultedList.of();
 
-            List<EmiStack> meSystem = InventoryUtils.getExistingStacks(menu);
-            allStack.addAll(meSystem);
+                List<EmiStack> meSystem = InventoryUtils.getExistingStacks(menu);
+                allStack.addAll(meSystem);
 
-            List<EmiStack> hotbar = InventoryUtils.getStacks(screen, SlotSemantics.PLAYER_HOTBAR);
-            allStack.addAll(hotbar);
+                List<EmiStack> hotbar = InventoryUtils.getStacks(screen, SlotSemantics.PLAYER_HOTBAR);
+                allStack.addAll(hotbar);
 
-            List<EmiStack> inventory = InventoryUtils.getStacks(screen, SlotSemantics.PLAYER_INVENTORY);
-            allStack.addAll(inventory);
+                List<EmiStack> inventory = InventoryUtils.getStacks(screen, SlotSemantics.PLAYER_INVENTORY);
+                allStack.addAll(inventory);
 
-            if (menu instanceof CraftingTermMenu) {
-                List<EmiStack> craft = InventoryUtils.getStacks(screen, SlotSemantics.CRAFTING_GRID);
-                allStack.addAll(craft);
+                if (menu instanceof CraftingTermMenu) {
+                    List<EmiStack> craft = InventoryUtils.getStacks(screen, SlotSemantics.CRAFTING_GRID);
+                    allStack.addAll(craft);
+                }
+
+                return new EmiPlayerInventory(allStack);
+            });
+
+            try {
+                // Return the computed inventory after the async task completes
+                return futureInventory.get();  // Blocks until the async task completes
+            } catch (Exception e) {
+                e.printStackTrace();
+                return EmiPlayerInventory.of(handler.getPlayer());  // Just return player inventory if an error occurs
             }
 
-            return new EmiPlayerInventory(allStack);
         } else {
             return EmiPlayerInventory.of(handler.getPlayer());
         }
     }
 
     protected abstract Result transferRecipe(T menu,
-                                             @Nullable Recipe<?> recipe,
-                                             EmiRecipe emiRecipe,
-                                             boolean doTransfer);
+            @Nullable Recipe<?> recipe,
+            EmiRecipe emiRecipe,
+            boolean doTransfer);
 
     protected final Result transferRecipe(EmiRecipe emiRecipe, EmiCraftContext<T> context, boolean doTransfer) {
         if (!containerClass.isInstance(context.getScreenHandler())) {
@@ -81,7 +101,6 @@ public abstract class Ae2BaseRecipeHandler<T extends AEBaseMenu> implements EmiR
                 .get(emiRecipe.getId())
                 .orElse(null);
 
-
         T menu = containerClass.cast(context.getScreenHandler());
 
         var result = transferRecipe(menu, recipe, emiRecipe, doTransfer);
@@ -90,7 +109,6 @@ public abstract class Ae2BaseRecipeHandler<T extends AEBaseMenu> implements EmiR
         }
         return result;
     }
-
 
     @Override
     public boolean supportsRecipe(EmiRecipe recipe) {
@@ -111,7 +129,6 @@ public abstract class Ae2BaseRecipeHandler<T extends AEBaseMenu> implements EmiR
         return transferRecipe(recipe, context, true).canCraft();
     }
 
-
     @Override
     public List<TooltipComponent> getTooltip(EmiRecipe recipe, EmiCraftContext<T> context) {
         var tooltip = transferRecipe(recipe, context, false).getTooltip(recipe, context);
@@ -130,7 +147,12 @@ public abstract class Ae2BaseRecipeHandler<T extends AEBaseMenu> implements EmiR
         if (context.getType() == EmiCraftContext.Type.FILL_BUTTON) {
             transferRecipe(recipe, context, false).render(recipe, context, widgets, draw);
         } else {
-            EmiRecipeHandler.super.render(recipe, context,  widgets,  draw);
+            EmiRecipeHandler.super.render(recipe, context, widgets, draw);
         }
+    }
+
+    // Shutdown the executor service when the mod is unloaded (if applicable)
+    public static void shutdownExecutorService() {
+        executorService.shutdown();
     }
 }
