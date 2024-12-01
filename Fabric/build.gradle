@@ -1,0 +1,24 @@
+plugins {
+    id 'fabric-loom' version '1.6-SNAPSHOT'
+}
+
+archives_base_name="${mod_slug}-Fabric-${minecraft_version}"
+
+dependencies {
+    minecraft "net.minecraft:minecraft:${minecraft_version}"
+    mappings loom.layered() {
+        officialMojangMappings()
+        parchment("org.parchmentmc.data:parchment-${minecraft_version}:${parchment_version}@zip")
+    }
+
+    modImplementation("dev.emi:emi-fabric:${emi_version}")
+    modImplementation("appeng:appliedenergistics2-fabric:${project.ae2_version}")
+}
+
+processResources {
+    def buildProps =  project.getProperties()
+
+    filesMatching(['fabric.mod.json']) {
+        expand buildProps
+    }
+}

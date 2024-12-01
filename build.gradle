@@ -1,0 +1,41 @@
+plugins {
+    id 'java'
+
+    // Plugin to create merged jars
+    id "io.github.pacifistmc.forgix" version "1.2.9"
+
+    // Architectury is used here only as a replacement for forgegradle
+    id "dev.architectury.loom" version "1.6-SNAPSHOT" apply false
+}
+
+subprojects { p ->
+    apply plugin: "java"
+
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+
+    tasks.withType(JavaCompile).configureEach {
+        it.options.encoding = "UTF-8"
+        it.options.release = 17
+    }
+
+    repositories {
+        // AE2
+        maven {
+            name "ModMaven"
+            url "https://modmaven.dev"
+        }
+
+        // EMI
+        maven {
+            name = "TerraformersMC"
+            url = "https://maven.terraformersmc.com/"
+        }
+
+        // Parchment
+        maven {
+            name = 'ParchmentMC'
+            url = 'https://maven.parchmentmc.org'
+        }
+    }
+}
