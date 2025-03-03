@@ -1,0 +1,16 @@
+{
+  "ae2-emi-crafting.category_condenser": "Condensador de Materia",
+  "ae2-emi-crafting.category_inscriber": "Inscribidor",
+  "ae2-emi-crafting.category_attunement": "Sintonización de Túnel P2P",
+  "ae2-emi-crafting.category_transform": "Transformación en el Mundo",
+  "ae2-emi-crafting.category_charger": "Cargador",
+  "ae2-emi-crafting.category_entropy_manipulator": "Manipulador de Entropía",
+  "ae2-emi-crafting.error.crafting.storage_terminal": "No se puede fabricar usando un Terminal de Almacenamiento ME",
+  "text.autoconfig.ae2-emi-crafting.title": "AE2 EMI Crafting Integration",
+  "text.autoconfig.ae2-emi-crafting.category.emi": "EMI",
+  "text.autoconfig.ae2-emi-crafting.category.integration": "Integración de Mods",
+  "text.autoconfig.ae2-emi-crafting.option.bomsync": "Sincronización de Lista de Materiales",
+  "text.autoconfig.ae2-emi-crafting.option.bomsync.@Tooltip": "Permite que EMI lea el contenido del sistema ME",
+  "text.autoconfig.ae2-emi-crafting.option.exmi": "Integraciones de Mods Extra",
+  "text.autoconfig.ae2-emi-crafting.option.exmi.@Tooltip": "Elimina las recetas de ExMI AE2 de ser registradas"
+}
